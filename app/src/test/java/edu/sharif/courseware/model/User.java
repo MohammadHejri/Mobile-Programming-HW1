@@ -13,14 +13,13 @@ public abstract class User {
     private String password;
     private String firstname;
     private String lastname;
-    private UserDBHelper dbHelper;
+    protected static UserDBHelper userDBHelper = new UserDBHelper(null);
 
     public User(String username, String password, String firstname, String lastname) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.dbHelper = new UserDBHelper(null);
     }
 
     public String getUsername() {
