@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class StudentMainPage extends AppCompatActivity {
+import adapters.CourseRecyclerAdapter;
+
+public class StudentMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
     Button joinClassBtn;
 
@@ -29,6 +31,11 @@ public class StudentMainPage extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //TODO
+    }
+
+    @Override
+    public void onCourseClick(int position) {
         //TODO
     }
 }

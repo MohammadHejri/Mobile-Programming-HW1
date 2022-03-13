@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class StudentJoinClass extends AppCompatActivity {
+import adapters.CourseRecyclerAdapter;
+
+public class StudentJoinClass extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
     Button joinClassBtn;
     TextView classIdJoin;
@@ -16,6 +18,7 @@ public class StudentJoinClass extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_join_class);
+
         joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
         classIdJoin = (TextView) findViewById(R.id.classIdJoin);
 
@@ -26,5 +29,10 @@ public class StudentJoinClass extends AppCompatActivity {
                 //TODO
             }
         });
+    }
+
+    @Override
+    public void onCourseClick(int position) {
+        //TODO
     }
 }
