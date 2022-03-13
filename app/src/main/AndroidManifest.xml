@@ -11,15 +11,17 @@
         android:theme="@style/Theme.Courseware">
         <activity
             android:name=".StudentJoinClass"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".StudentMainPage" />
         <activity
             android:name=".StudentMainPage"
             android:exported="false" />
         <activity
             android:name=".ProfessorCreateClass"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ProfessorMainPage" />
         <activity
-            android:name=".ProfessorPage"
+            android:name=".ProfessorMainPage"
             android:exported="false" />
     </application>
 
