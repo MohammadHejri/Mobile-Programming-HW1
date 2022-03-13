@@ -7,12 +7,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import adapters.CourseRecyclerAdapter;
+import model.Course;
 
 public class StudentJoinClass extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
     Button joinClassBtn;
     TextView classIdJoin;
+    private ArrayList<Course> mCourses = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 import adapters.CourseRecyclerAdapter;
+import model.Course;
 
 public class ProfessorMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
     Button joinClassBtn;
+    private ArrayList<Course> mCourses = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
