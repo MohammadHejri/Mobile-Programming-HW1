@@ -8,6 +8,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Courseware" />
+        android:theme="@style/Theme.Courseware">
+        <activity
+            android:name=".StudentJoinClass"
+            android:exported="false" />
+        <activity
+            android:name=".StudentMainPage"
+            android:exported="false" />
+        <activity
+            android:name=".ProfessorCreateClass"
+            android:exported="false" />
+        <activity
+            android:name=".ProfessorPage"
+            android:exported="false" />
+    </application>
 
 </manifest>
