@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         kir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Student an = Student.createStudent("an","an","sadegh","heyvon","98106015");
-                Student an2 = Student.getStudent("an");
+                Student an = Student.createStudent(MainActivity.this, "an","an","sadegh","heyvon","98106015");
+                Student an2 = Student.getStudent(MainActivity.this, "an");
                 Log.d("SAG", an2.getFirstname() + "\n" + an.getLastname() + "\n" + an2.getStudentNumber());
             }
         });

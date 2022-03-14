@@ -13,7 +13,7 @@ public abstract class User {
     private String password;
     private String firstname;
     private String lastname;
-    protected static UserDBHelper userDBHelper = new UserDBHelper(null);
+    protected static DBHelper userDBHelper;
 
     public User(String username, String password, String firstname, String lastname) {
         this.username = username;
@@ -67,41 +67,41 @@ public abstract class User {
         return Objects.hash(username);
     }
 
-    static class UserDBHelper extends SQLiteOpenHelper {
-        private static final String DATABASE_NAME = "courseware";
-        private static final String TABLE_NAME = "user";
-        private static final int DATABASE_VERSION = 1;
-        private static final String USERNAME = "username";
-        private static final String PASSWORD = "password";
-        private static final String FIRST_NAME = "firstname";
-        private static final String LAST_NAME = "lastname";
-        private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
-                USERNAME + " VARCHAR(64) PRIMARY KEY , " + PASSWORD + " VARCHAR(64) NOT NULL , " +
-                FIRST_NAME + " VARCHAR(128) , " + LAST_NAME + " VARCHAR(128));";
-        private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
-
-        public UserDBHelper(@Nullable Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase sqLiteDatabase) {
-            try {
-                sqLiteDatabase.execSQL(CREATE_TABLE);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-            try {
-                System.out.println("OnUpgrade");
-                sqLiteDatabase.execSQL(DROP_TABLE);
-                onCreate(sqLiteDatabase);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
+//    static class UserDBHelper extends SQLiteOpenHelper {
+//        private static final String DATABASE_NAME = "courseware";
+//        private static final int DATABASE_VERSION = 1;
+//        private static final String USER_TABLE_NAME = "user";
+//        private static final String USER_USERNAME = "username";
+//        private static final String USER_PASSWORD = "password";
+//        private static final String USER_FIRST_NAME = "firstname";
+//        private static final String USER_LAST_NAME = "lastname";
+//        private static final String USER_CREATE_TABLE = "CREATE TABLE " + USER_TABLE_NAME + " (" +
+//                USER_USERNAME + " VARCHAR(64) PRIMARY KEY , " + USER_PASSWORD + " VARCHAR(64) NOT NULL , " +
+//                USER_FIRST_NAME + " VARCHAR(128) , " + USER_LAST_NAME + " VARCHAR(128));";
+//        private static final String USER_DROP_TABLE = "DROP TABLE IF EXISTS " + USER_TABLE_NAME + ";";
+//
+//        public UserDBHelper(@Nullable Context context) {
+//            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+//        }
+//
+//        @Override
+//        public void onCreate(SQLiteDatabase sqLiteDatabase) {
+//            try {
+//                sqLiteDatabase.execSQL(USER_CREATE_TABLE);
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//
+//        @Override
+//        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+//            try {
+//                System.out.println("OnUpgrade");
+//                sqLiteDatabase.execSQL(USER_DROP_TABLE);
+//                onCreate(sqLiteDatabase);
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//    }
 }
