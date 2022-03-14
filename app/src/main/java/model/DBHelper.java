@@ -25,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String STUDENT_NUMBER = "stnum";
     private static final String STUDENT_CREATE_TABLE = "CREATE TABLE " + STUDENT_TABLE_NAME + " (" +
             STUDENT_USERNAME + " VARCHAR(64) PRIMARY KEY , " + STUDENT_NUMBER + " VARCHAR(10) NOT NULL , "
-            + "FOREIGN KEY (" + STUDENT_USERNAME + ") REFERENCES " + USER_TABLE_NAME + "(" + STUDENT_USERNAME +
+            + "FOREIGN KEY (" + STUDENT_USERNAME + ") REFERENCES " + USER_TABLE_NAME + "(" + USER_USERNAME +
             ") ON DELETE CASCADE ON UPDATE CASCADE );";
     private static final String STUDENT_DROP_TABLE = "DROP TABLE IF EXISTS " + STUDENT_TABLE_NAME + ";";
 
@@ -34,7 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String PROFESSOR_UNIVERSITY_NAME = "uniname";
     private static final String PROFESSOR_CREATE_TABLE = "CREATE TABLE " + PROFESSOR_TABLE_NAME + " (" +
             PROFESSOR_USERNAME + " VARCHAR(64) PRIMARY KEY , " + PROFESSOR_UNIVERSITY_NAME + " VARCHAR(64) NOT NULL , "
-            + "FOREIGN KEY (" + PROFESSOR_USERNAME + ") REFERENCES " + USER_TABLE_NAME + "(" + PROFESSOR_USERNAME +
+            + "FOREIGN KEY (" + PROFESSOR_USERNAME + ") REFERENCES " + USER_TABLE_NAME + "(" + USER_USERNAME +
             ") ON DELETE CASCADE ON UPDATE CASCADE );";
     private static final String PROFESSOR_DROP_TABLE = "DROP TABLE IF EXISTS " + PROFESSOR_TABLE_NAME + ";";
 
@@ -42,11 +42,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COURSE_ID = "course_id";
     public static final String COURSE_NAME = "name";
     public static final String COURSE_OWNER = "owner";
-    public static final String COURSE_OWNER_FK = "username";
     private static final String COURSE_CREATE_TABLE = "CREATE TABLE " + COURSE_TABLE_NAME + " ("
             + COURSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
             COURSE_NAME + " VARCHAR(64) NOT NULL , " + COURSE_OWNER + " VARCHAR(64) NOT NULL , "
-            + "FOREIGN KEY (" + COURSE_OWNER + ") REFERENCES " + PROFESSOR_TABLE_NAME + "(" + COURSE_OWNER_FK +
+            + "FOREIGN KEY (" + COURSE_OWNER + ") REFERENCES " + PROFESSOR_TABLE_NAME + "(" + PROFESSOR_USERNAME +
             ") ON DELETE CASCADE ON UPDATE CASCADE );";
     private static final String COURSE_DROP_TABLE = "DROP TABLE IF EXISTS " + COURSE_TABLE_NAME + ";";
 
@@ -61,6 +60,31 @@ public class DBHelper extends SQLiteOpenHelper {
             ") ON DELETE CASCADE ON UPDATE CASCADE , " + "PRIMARY KEY (" + COURSE_ID + " , " + CO_STU_STUDENT + ") );";
     private static final String COURSE_STUDENT_DROP_TABLE = "DROP TABLE IF EXISTS " + COURSE_STUDENT_TABLE_NAME + ";";
 
+    public static final String HOMEWORK_TABLE_NAME = "homework";
+    public static final String HOMEWORK_NAME = "name";
+    public static final String HOMEWORK_QUESTION = "question";
+    public static final String HOMEWORK_COURSE_ID = "course_id";
+    private static final String HOMEWORK_CREATE_TABLE = "CREATE TABLE " + HOMEWORK_TABLE_NAME + " (" +
+            HOMEWORK_NAME + " VARCHAR(64) NOT NULL , " + HOMEWORK_COURSE_ID + " INTEGER NOT NULL ," + HOMEWORK_QUESTION + " VARCHAR(256) , "
+            + "FOREIGN KEY (" + HOMEWORK_COURSE_ID + ") REFERENCES " + COURSE_TABLE_NAME + "(" + COURSE_ID +
+            ") ON DELETE CASCADE ON UPDATE CASCADE , " + "PRIMARY KEY (" + HOMEWORK_NAME + " , " + HOMEWORK_COURSE_ID + ") );";
+    private static final String HOMEWORK_DROP_TABLE = "DROP TABLE IF EXISTS " + HOMEWORK_TABLE_NAME + ";";
+
+    public static final String SUBMISSION_TABLE_NAME = "submission";
+    public static final String SUBMISSION_ANSWER = "answer";
+    public static final String SUBMISSION_MARK = "mark";
+    public static final String SUBMISSION_HW_NAME = "hw_name";
+    public static final String SUBMISSION_STUDENT = "student";
+    private static final String SUBMISSION_CREATE_TABLE = "CREATE TABLE " + SUBMISSION_TABLE_NAME + " (" +
+            SUBMISSION_HW_NAME + " VARCHAR(64) NOT NULL , " + HOMEWORK_COURSE_ID + " INTEGER NOT NULL ," + SUBMISSION_STUDENT + " VARCHAR(64) NOT NULL , "
+            + SUBMISSION_ANSWER + " VARCHAR(256) , " + SUBMISSION_MARK + " FLOAT(10) , "
+            + "FOREIGN KEY (" + SUBMISSION_HW_NAME + " , " + HOMEWORK_COURSE_ID + ") REFERENCES " + HOMEWORK_TABLE_NAME + "(" + HOMEWORK_NAME + " , " + HOMEWORK_COURSE_ID +
+            ") ON DELETE CASCADE ON UPDATE CASCADE , "
+            + "FOREIGN KEY (" + SUBMISSION_STUDENT + ") REFERENCES " + STUDENT_TABLE_NAME + "(" + STUDENT_USERNAME +
+            ") ON DELETE CASCADE ON UPDATE CASCADE , "
+            + "PRIMARY KEY (" + SUBMISSION_HW_NAME + " , " + HOMEWORK_COURSE_ID + " , " + SUBMISSION_STUDENT + ") );";
+    private static final String SUBMISSION_DROP_TABLE = "DROP TABLE IF EXISTS " + SUBMISSION_TABLE_NAME + ";";
+
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -73,6 +97,8 @@ public class DBHelper extends SQLiteOpenHelper {
             sqLiteDatabase.execSQL(PROFESSOR_CREATE_TABLE);
             sqLiteDatabase.execSQL(COURSE_CREATE_TABLE);
             sqLiteDatabase.execSQL(COURSE_STUDENT_CREATE_TABLE);
+            sqLiteDatabase.execSQL(HOMEWORK_CREATE_TABLE);
+            sqLiteDatabase.execSQL(SUBMISSION_CREATE_TABLE);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -82,6 +108,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         try {
             System.out.println("OnUpgrade");
+            sqLiteDatabase.execSQL(SUBMISSION_DROP_TABLE);
+            sqLiteDatabase.execSQL(HOMEWORK_DROP_TABLE);
             sqLiteDatabase.execSQL(COURSE_STUDENT_DROP_TABLE);
             sqLiteDatabase.execSQL(COURSE_DROP_TABLE);
             sqLiteDatabase.execSQL(STUDENT_DROP_TABLE);
