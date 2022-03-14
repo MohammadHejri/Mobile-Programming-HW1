@@ -4,9 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-
-import androidx.annotation.Nullable;
 
 public class Student extends User {
     private String studentNumber;
@@ -30,11 +27,11 @@ public class Student extends User {
         studentDBHelper = new DBHelper(context);
         SQLiteDatabase db = userDBHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("username", username);
-        contentValues.put("password", password);
-        contentValues.put("firstname", firstname);
-        contentValues.put("lastname", lastname);
-        db.insert("user", null, contentValues);
+        contentValues.put(DBHelper.USER_USERNAME, username);
+        contentValues.put(DBHelper.USER_PASSWORD, password);
+        contentValues.put(DBHelper.USER_FIRST_NAME, firstname);
+        contentValues.put(DBHelper.USER_LAST_NAME, lastname);
+        db.insert(DBHelper.USER_TABLE_NAME, null, contentValues);
 
         SQLiteDatabase stuDB = studentDBHelper.getWritableDatabase();
         ContentValues stuContentValues = new ContentValues();
@@ -48,14 +45,14 @@ public class Student extends User {
         userDBHelper = new DBHelper(context);
         studentDBHelper = new DBHelper(context);
         SQLiteDatabase db = userDBHelper.getReadableDatabase();
-        String[] columns = {"username", "password", "firstname", "lastname"};
-        String selection = "username" + " = ?";
+        String[] columns = {DBHelper.USER_USERNAME, DBHelper.USER_PASSWORD, DBHelper.USER_FIRST_NAME, DBHelper.USER_LAST_NAME};
+        String selection = DBHelper.USER_USERNAME + " = ?";
         String[] selectionArgs = { username };
-        Cursor cursor = db.query("user", columns, selection, selectionArgs,null,null,null);
+        Cursor cursor = db.query(DBHelper.USER_TABLE_NAME, columns, selection, selectionArgs,null,null,null);
         cursor.moveToNext();
-        String password = cursor.getString(cursor.getColumnIndex("password"));
-        String firstname = cursor.getString(cursor.getColumnIndex("firstname"));
-        String lastname = cursor.getString(cursor.getColumnIndex("lastname"));
+        String password = cursor.getString(cursor.getColumnIndex(DBHelper.USER_PASSWORD));
+        String firstname = cursor.getString(cursor.getColumnIndex(DBHelper.USER_FIRST_NAME));
+        String lastname = cursor.getString(cursor.getColumnIndex(DBHelper.USER_LAST_NAME));
 
         SQLiteDatabase stuDB = studentDBHelper.getReadableDatabase();
         String[] stuColumns = {DBHelper.STUDENT_USERNAME, DBHelper.STUDENT_NUMBER};
@@ -67,42 +64,4 @@ public class Student extends User {
         return new Student(username, password, firstname, lastname, studentNumber);
     }
 
-//    static class StudentDBHelper extends SQLiteOpenHelper {
-//        private static final String DATABASE_NAME = "courseware";
-//        private static final int DATABASE_VERSION = 1;
-//        private static final String USER_TABLE_NAME = "user";
-//
-//        private static final String STUDENT_TABLE_NAME = "student";
-//        private static final String STUDENT_USERNAME = "username";
-//        private static final String STUDENT_NUMBER = "stnum";
-//        private static final String STUDENT_CREATE_TABLE = "CREATE TABLE " + STUDENT_TABLE_NAME + " (" +
-//                STUDENT_USERNAME + " VARCHAR(64) PRIMARY KEY , " + STUDENT_NUMBER + " VARCHAR(10) NOT NULL , "
-//                + "FOREIGN KEY (" + STUDENT_USERNAME + ") REFERENCES " + USER_TABLE_NAME + "(" + STUDENT_USERNAME +
-//                ") ON DELETE CASCADE ON UPDATE CASCADE );";
-//        private static final String STUDENT_DROP_TABLE = "DROP TABLE IF EXISTS " + STUDENT_TABLE_NAME + ";";
-//
-//        public StudentDBHelper(@Nullable Context context) {
-//            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//        }
-//
-//        @Override
-//        public void onCreate(SQLiteDatabase sqLiteDatabase) {
-//            try {
-//                sqLiteDatabase.execSQL(STUDENT_CREATE_TABLE);
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
-//        }
-//
-//        @Override
-//        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-//            try {
-//                System.out.println("OnUpgrade");
-//                sqLiteDatabase.execSQL(STUDENT_DROP_TABLE);
-//                onCreate(sqLiteDatabase);
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
-//        }
-//    }
 }

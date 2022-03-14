@@ -15,19 +15,51 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String USER_PASSWORD = "password";
     public static final String USER_FIRST_NAME = "firstname";
     public static final String USER_LAST_NAME = "lastname";
-    public static final String USER_CREATE_TABLE = "CREATE TABLE " + USER_TABLE_NAME + " (" +
+    private static final String USER_CREATE_TABLE = "CREATE TABLE " + USER_TABLE_NAME + " (" +
             USER_USERNAME + " VARCHAR(64) PRIMARY KEY , " + USER_PASSWORD + " VARCHAR(64) NOT NULL , " +
             USER_FIRST_NAME + " VARCHAR(128) , " + USER_LAST_NAME + " VARCHAR(128));";
-    public static final String USER_DROP_TABLE = "DROP TABLE IF EXISTS " + USER_TABLE_NAME + ";";
+    private static final String USER_DROP_TABLE = "DROP TABLE IF EXISTS " + USER_TABLE_NAME + ";";
 
     public static final String STUDENT_TABLE_NAME = "student";
     public static final String STUDENT_USERNAME = "username";
     public static final String STUDENT_NUMBER = "stnum";
-    public static final String STUDENT_CREATE_TABLE = "CREATE TABLE " + STUDENT_TABLE_NAME + " (" +
+    private static final String STUDENT_CREATE_TABLE = "CREATE TABLE " + STUDENT_TABLE_NAME + " (" +
             STUDENT_USERNAME + " VARCHAR(64) PRIMARY KEY , " + STUDENT_NUMBER + " VARCHAR(10) NOT NULL , "
             + "FOREIGN KEY (" + STUDENT_USERNAME + ") REFERENCES " + USER_TABLE_NAME + "(" + STUDENT_USERNAME +
             ") ON DELETE CASCADE ON UPDATE CASCADE );";
-    public static final String STUDENT_DROP_TABLE = "DROP TABLE IF EXISTS " + STUDENT_TABLE_NAME + ";";
+    private static final String STUDENT_DROP_TABLE = "DROP TABLE IF EXISTS " + STUDENT_TABLE_NAME + ";";
+
+    public static final String PROFESSOR_TABLE_NAME = "professor";
+    public static final String PROFESSOR_USERNAME = "username";
+    public static final String PROFESSOR_UNIVERSITY_NAME = "uniname";
+    private static final String PROFESSOR_CREATE_TABLE = "CREATE TABLE " + PROFESSOR_TABLE_NAME + " (" +
+            PROFESSOR_USERNAME + " VARCHAR(64) PRIMARY KEY , " + PROFESSOR_UNIVERSITY_NAME + " VARCHAR(64) NOT NULL , "
+            + "FOREIGN KEY (" + PROFESSOR_USERNAME + ") REFERENCES " + USER_TABLE_NAME + "(" + PROFESSOR_USERNAME +
+            ") ON DELETE CASCADE ON UPDATE CASCADE );";
+    private static final String PROFESSOR_DROP_TABLE = "DROP TABLE IF EXISTS " + PROFESSOR_TABLE_NAME + ";";
+
+    public static final String COURSE_TABLE_NAME = "course";
+    public static final String COURSE_ID = "course_id";
+    public static final String COURSE_NAME = "name";
+    public static final String COURSE_OWNER = "owner";
+    public static final String COURSE_OWNER_FK = "username";
+    private static final String COURSE_CREATE_TABLE = "CREATE TABLE " + COURSE_TABLE_NAME + " ("
+            + COURSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+            COURSE_NAME + " VARCHAR(64) NOT NULL , " + COURSE_OWNER + " VARCHAR(64) NOT NULL , "
+            + "FOREIGN KEY (" + COURSE_OWNER + ") REFERENCES " + PROFESSOR_TABLE_NAME + "(" + COURSE_OWNER_FK +
+            ") ON DELETE CASCADE ON UPDATE CASCADE );";
+    private static final String COURSE_DROP_TABLE = "DROP TABLE IF EXISTS " + COURSE_TABLE_NAME + ";";
+
+    public static final String COURSE_STUDENT_TABLE_NAME = "course_student";
+    public static final String CO_STU_STUDENT = "student";
+    public static final String CO_STU_STUDENT_FK = "username";
+    private static final String COURSE_STUDENT_CREATE_TABLE = "CREATE TABLE " + COURSE_STUDENT_TABLE_NAME + " (" +
+            COURSE_ID + " INTEGER NOT NULL ,"
+            + CO_STU_STUDENT + " VARCHAR(64) NOT NULL , "
+            + "FOREIGN KEY (" + COURSE_ID + ") REFERENCES " + COURSE_TABLE_NAME + "(" + COURSE_ID +
+            ") ON DELETE CASCADE ON UPDATE CASCADE , " + "FOREIGN KEY (" + CO_STU_STUDENT + ") REFERENCES " + STUDENT_TABLE_NAME + "(" + CO_STU_STUDENT_FK +
+            ") ON DELETE CASCADE ON UPDATE CASCADE , " + "PRIMARY KEY (" + COURSE_ID + " , " + CO_STU_STUDENT + ") );";
+    private static final String COURSE_STUDENT_DROP_TABLE = "DROP TABLE IF EXISTS " + COURSE_STUDENT_TABLE_NAME + ";";
 
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,6 +70,9 @@ public class DBHelper extends SQLiteOpenHelper {
         try {
             sqLiteDatabase.execSQL(USER_CREATE_TABLE);
             sqLiteDatabase.execSQL(STUDENT_CREATE_TABLE);
+            sqLiteDatabase.execSQL(PROFESSOR_CREATE_TABLE);
+            sqLiteDatabase.execSQL(COURSE_CREATE_TABLE);
+            sqLiteDatabase.execSQL(COURSE_STUDENT_CREATE_TABLE);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -47,7 +82,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         try {
             System.out.println("OnUpgrade");
+            sqLiteDatabase.execSQL(COURSE_STUDENT_DROP_TABLE);
+            sqLiteDatabase.execSQL(COURSE_DROP_TABLE);
             sqLiteDatabase.execSQL(STUDENT_DROP_TABLE);
+            sqLiteDatabase.execSQL(PROFESSOR_DROP_TABLE);
             sqLiteDatabase.execSQL(USER_DROP_TABLE);
             onCreate(sqLiteDatabase);
         } catch (Exception e) {
