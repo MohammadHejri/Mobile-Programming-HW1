@@ -53,6 +53,7 @@ public class Professor extends User {
         String password = cursor.getString(cursor.getColumnIndex(DBHelper.USER_PASSWORD));
         String firstname = cursor.getString(cursor.getColumnIndex(DBHelper.USER_FIRST_NAME));
         String lastname = cursor.getString(cursor.getColumnIndex(DBHelper.USER_LAST_NAME));
+        cursor.close();
 
         SQLiteDatabase profDB = professorDBHelper.getReadableDatabase();
         String[] profColumns = {DBHelper.PROFESSOR_USERNAME, DBHelper.PROFESSOR_UNIVERSITY_NAME};
@@ -61,6 +62,7 @@ public class Professor extends User {
         Cursor profCursor = profDB.query(DBHelper.PROFESSOR_TABLE_NAME, profColumns, profSelection, profSelectionArgs,null,null,null);
         profCursor.moveToNext();
         String universityName = profCursor.getString(profCursor.getColumnIndex(DBHelper.PROFESSOR_UNIVERSITY_NAME));
+        profCursor.close();
         return new Professor(username, password, firstname, lastname, universityName);
     }
 

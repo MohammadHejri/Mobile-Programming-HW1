@@ -53,6 +53,7 @@ public class Student extends User {
         String password = cursor.getString(cursor.getColumnIndex(DBHelper.USER_PASSWORD));
         String firstname = cursor.getString(cursor.getColumnIndex(DBHelper.USER_FIRST_NAME));
         String lastname = cursor.getString(cursor.getColumnIndex(DBHelper.USER_LAST_NAME));
+        cursor.close();
 
         SQLiteDatabase stuDB = studentDBHelper.getReadableDatabase();
         String[] stuColumns = {DBHelper.STUDENT_USERNAME, DBHelper.STUDENT_NUMBER};
@@ -61,6 +62,7 @@ public class Student extends User {
         Cursor stuCursor = stuDB.query(DBHelper.STUDENT_TABLE_NAME, stuColumns, stuSelection, stuSelectionArgs,null,null,null);
         stuCursor.moveToNext();
         String studentNumber = stuCursor.getString(stuCursor.getColumnIndex(DBHelper.STUDENT_NUMBER));
+        stuCursor.close();
         return new Student(username, password, firstname, lastname, studentNumber);
     }
 
