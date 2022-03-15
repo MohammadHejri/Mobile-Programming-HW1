@@ -7,7 +7,7 @@ public class Submission {
     private float mark;
     private Student student;
     private Homework homework;
-    private DBHelper submissionDBHelper;
+    private static DBHelper submissionDBHelper;
 
     public Submission(String answer, Student student, Homework homework) {
         this.answer = answer;
