@@ -1,27 +1,49 @@
 package edu.sharif.courseware;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import adapters.CourseRecyclerAdapter;
 import model.Course;
+import model.Professor;
 
 public class StudentJoinClass extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
     Button joinClassBtn;
     TextView classIdJoin;
+    RecyclerView rvClasses;
+    CourseRecyclerAdapter adapter;
     private ArrayList<Course> mCourses = new ArrayList<>();
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_join_class);
+
+
+        rvClasses = (RecyclerView) findViewById(R.id.studentNewClassList);
+
+        Professor prof = new Professor("a","b","c","d","e");
+
+        for(int i = 0; i < 20; i++) {
+            mCourses.add(new Course(12,"a",prof));
+        }
+        adapter = new CourseRecyclerAdapter(mCourses,this);
+
+        rvClasses.setAdapter(adapter);
+        rvClasses.setLayoutManager(new LinearLayoutManager(this));
 
         joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
         classIdJoin = (TextView) findViewById(R.id.classIdJoin);
@@ -37,6 +59,16 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
 
     @Override
     public void onCourseClick(int position) {
-        //TODO
+        if(position == -1)
+            return;
+        mCourses.remove(position);
+        adapter.notifyItemRemoved(position);
+//        String text = "item number " + Integer.toString(position) + " was clicked.";
+//
+//        Context context = getApplicationContext();
+//        int duration = Toast.LENGTH_SHORT;
+//
+//        Toast toast = Toast.makeText(context, text, duration);
+//        toast.show();
     }
 }

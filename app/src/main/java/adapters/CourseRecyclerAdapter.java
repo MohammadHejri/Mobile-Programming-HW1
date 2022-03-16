@@ -22,12 +22,10 @@ public class CourseRecyclerAdapter extends RecyclerView.Adapter<CourseRecyclerAd
 
     private ArrayList<Course> mCourses = new ArrayList<>();
     private OnCourseListener mOnCourseListener;
-    private Context mContext;
 
-    public CourseRecyclerAdapter(Context context,ArrayList<Course> Courses, OnCourseListener onCourseListener) {
+    public CourseRecyclerAdapter(ArrayList<Course> Courses, OnCourseListener onCourseListener) {
         this.mCourses = Courses;
         this.mOnCourseListener = onCourseListener;
-        this.mContext = context;
     }
 
     @NonNull
@@ -40,8 +38,8 @@ public class CourseRecyclerAdapter extends RecyclerView.Adapter<CourseRecyclerAd
 
     @Override
     public void onBindViewHolder(@NonNull CourseRecyclerAdapter.ViewHolder holder, int position) {
-        holder.courseNameList.setText("Text");
-        holder.courseIdList.setText("Test");
+        holder.courseNameList.setText("Course");
+        holder.courseIdList.setText(Integer.toString(position));
     }
 
     @Override
