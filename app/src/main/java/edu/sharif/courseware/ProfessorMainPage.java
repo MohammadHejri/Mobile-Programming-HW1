@@ -1,6 +1,8 @@
 package edu.sharif.courseware;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import model.Course;
 public class ProfessorMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
     Button joinClassBtn;
+    RecyclerView rvClasses;
+    CourseRecyclerAdapter adapter;
     private ArrayList<Course> mCourses = new ArrayList<>();
 
     @Override
@@ -22,6 +26,13 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professor_main_page);
         joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
+        rvClasses = (RecyclerView) findViewById(R.id.studentNewClassList);
+
+        adapter = new CourseRecyclerAdapter(mCourses,this);
+
+        rvClasses.setAdapter(adapter);
+        rvClasses.setLayoutManager(new LinearLayoutManager(this));
+
         joinClassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
