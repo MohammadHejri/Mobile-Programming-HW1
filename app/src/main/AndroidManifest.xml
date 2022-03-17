@@ -19,7 +19,7 @@
 
         <activity android:name=".StudentMainPage"
             android:label="@string/app_name"
-            android:exported="false">
+            android:exported="true">
         </activity>
 
         <activity

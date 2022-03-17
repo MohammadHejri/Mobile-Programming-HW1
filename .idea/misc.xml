@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2605" />
         <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable/background_3.xml" value="0.2605" />
+        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable/button_background_error.xml" value="0.1" />
         <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable/courseware_background.xml" value="0.297" />
         <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable/gradient_list.xml" value="0.275" />
         <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable/ic_baseline_class_24.xml" value="0.2605" />
@@ -27,6 +28,7 @@
         <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/content_scrolling.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/create_class_popup.xml" value="0.5" />
         <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/join_popup.xml" value="0.67" />
+        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/my_error_dialog.xml" value="0.24836601307189543" />
         <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/recyclerview_row.xml" value="0.23020833333333332" />
         <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/student_join_class_activity.xml" value="0.5" />
         <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/student_main_activity.xml" value="0.45925925925925926" />

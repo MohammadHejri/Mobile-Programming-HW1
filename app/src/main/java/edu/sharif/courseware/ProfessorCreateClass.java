@@ -1,6 +1,8 @@
 package edu.sharif.courseware;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,10 @@ public class ProfessorCreateClass extends AppCompatActivity {
     Button createClassBtn;
     TextView classNameText;
     TextView lecturerNameText;
+
+    //Error Dialog
+    AlertDialog.Builder builderDialog;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +32,25 @@ public class ProfessorCreateClass extends AppCompatActivity {
             public void onClick(View view) {
                 String className = classNameText.getText().toString();
                 String lecturerName = lecturerNameText.getText().toString();
-                //TODO
+                showAlertDialog(R.layout.my_error_dialog);
+            }
+        });
+    }
+
+    private void showAlertDialog(int myLayout) {
+        builderDialog = new AlertDialog.Builder(this);
+        View layoutView = getLayoutInflater().inflate(myLayout,null);
+
+        AppCompatButton dialogButton = layoutView.findViewById(R.id.bottomOk);
+        builderDialog.setView(layoutView);
+        alertDialog = builderDialog.create();
+        alertDialog.show();
+
+        //Close the dialog
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
             }
         });
     }
