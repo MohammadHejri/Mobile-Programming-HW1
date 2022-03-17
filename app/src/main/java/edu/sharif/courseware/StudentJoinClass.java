@@ -35,10 +35,12 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
 
         rvClasses = (RecyclerView) findViewById(R.id.studentNewClassList);
 
+        //Testing
+
         Professor prof = new Professor("a","b","c","d","e");
 
         for(int i = 0; i < 20; i++) {
-            mCourses.add(new Course(12,"a",prof));
+            mCourses.add(new Course(i,"a",prof));
         }
         adapter = new CourseRecyclerAdapter(mCourses,this);
 
