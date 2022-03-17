@@ -32,6 +32,13 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
 
         adapter = new CourseRecyclerAdapter(mCourses,this);
 
+        Professor prof = new Professor("a","b","c","d","e");
+
+        for(int i = 0; i < 20; i++) {
+            mCourses.add(new Course(i,"Main",prof));
+        }
+        adapter = new CourseRecyclerAdapter(mCourses,this);
+
         rvClasses.setAdapter(adapter);
         rvClasses.setLayoutManager(new LinearLayoutManager(this));
 

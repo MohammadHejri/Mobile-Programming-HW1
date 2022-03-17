@@ -39,8 +39,8 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
 
         Professor prof = new Professor("a","b","c","d","e");
 
-        for(int i = 0; i < 20; i++) {
-            mCourses.add(new Course(i,"a",prof));
+        for(int i = 0; i < 5; i++) {
+            mCourses.add(new Course(i,"Join",prof));
         }
         adapter = new CourseRecyclerAdapter(mCourses,this);
 

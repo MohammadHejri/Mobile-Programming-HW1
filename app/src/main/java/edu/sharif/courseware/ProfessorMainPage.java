@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import adapters.CourseRecyclerAdapter;
 import model.Course;
+import model.Professor;
 
 public class ProfessorMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
@@ -28,6 +29,14 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
         rvClasses = (RecyclerView) findViewById(R.id.studentNewClassList);
 
+        adapter = new CourseRecyclerAdapter(mCourses,this);
+
+
+        Professor prof = new Professor("a","b","c","d","e");
+
+        for(int i = 0; i < 3; i++) {
+            mCourses.add(new Course(i,"Join",prof));
+        }
         adapter = new CourseRecyclerAdapter(mCourses,this);
 
         rvClasses.setAdapter(adapter);
