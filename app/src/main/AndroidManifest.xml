@@ -25,6 +25,7 @@
         <activity
             android:name=".ProfessorCreateClass"
             android:exported="false"
+            android:windowSoftInputMode="adjustPan|adjustResize"
             android:parentActivityName=".ProfessorMainPage" />
         <activity
             android:name=".ProfessorMainPage"

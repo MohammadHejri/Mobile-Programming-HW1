@@ -1,20 +1,23 @@
 package controller;
 
+import android.content.Context;
+
 import java.util.List;
 
 import model.Course;
+import model.Homework;
 
 public class HomeworkController {
 
-    public HomeworkController() {
-        return;
+    private Context context;
+
+    public HomeworkController(Context context) {
+        this.context = context;
     }
 
-    public Course getCourse(String name, Course course) {
-        return null;
-    }
 
     public List<String> getAllAnswers(String name, Course course) {
+        //TODO
         return null;
     }
 }

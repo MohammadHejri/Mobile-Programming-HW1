@@ -12,6 +12,8 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 import adapters.CourseRecyclerAdapter;
+import controller.CourseController;
+import controller.UserController;
 import model.Course;
 import model.Professor;
 
@@ -20,32 +22,39 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
     Button joinClassBtn;
     RecyclerView rvClasses;
     CourseRecyclerAdapter adapter;
+    private CourseController courseController;
+    private UserController userController;
     private ArrayList<Course> mCourses = new ArrayList<>();
+    private String studentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_main_page);
-        joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
 
+        Intent intent = getIntent();
+        this.studentUsername = intent.getStringExtra("studentUsername");
+
+        //Instancing Controllers.
+        courseController = new CourseController(StudentMainPage.this);
+        userController = new UserController(StudentMainPage.this);
+
+        //Instancing Views.
+        joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
         rvClasses = (RecyclerView) findViewById(R.id.studentNewClassList);
 
+        //Recycler View.
+        mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this,studentUsername);
         adapter = new CourseRecyclerAdapter(mCourses,this);
-
-        Professor prof = new Professor("a","b","c","d","e");
-
-        for(int i = 0; i < 20; i++) {
-            mCourses.add(new Course(i,"Main",prof));
-        }
-        adapter = new CourseRecyclerAdapter(mCourses,this);
-
         rvClasses.setAdapter(adapter);
         rvClasses.setLayoutManager(new LinearLayoutManager(this));
 
+        //Add functionality.
         joinClassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StudentMainPage.this, StudentJoinClass.class);
+                intent.putExtra("studentUsername", studentUsername);
                 startActivity(intent);
             }
         });
