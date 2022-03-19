@@ -4,14 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,8 +16,6 @@ import adapters.CourseRecyclerAdapter;
 import controller.CourseController;
 import controller.UserController;
 import model.Course;
-import model.Professor;
-import model.Student;
 
 public class StudentJoinClass extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
@@ -49,7 +44,7 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
         //Instancing Views.
         joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
         classIdJoin = (TextView) findViewById(R.id.classIdJoin);
-        rvClasses = (RecyclerView) findViewById(R.id.studentNewClassList);
+        rvClasses = (RecyclerView) findViewById(R.id.homeworkRecycler);
 
         //Testing
 

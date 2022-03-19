@@ -45,13 +45,12 @@ public class ProfessorCreateClass extends AppCompatActivity {
         setContentView(R.layout.activity_professor_create_class);
         createClassBtn = (Button) findViewById(R.id.createClassBtn);
         classNameText = (TextView) findViewById(R.id.classNameText);
-        lecturerNameText = (TextView) findViewById(R.id.lecturerNameText);
 
         createClassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String className = classNameText.getText().toString();
-                String lecturerName = lecturerNameText.getText().toString();
+                String lecturerName = ProfessorCreateClass.this.professorName;
                 if (className.isEmpty() || lecturerName.isEmpty()) {
                     String errorMessage = "please fill out all required fields.";
                     showAlertDialog(R.layout.my_error_dialog, errorMessage);

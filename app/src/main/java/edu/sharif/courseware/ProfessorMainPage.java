@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,7 +16,6 @@ import adapters.CourseRecyclerAdapter;
 import controller.CourseController;
 import controller.UserController;
 import model.Course;
-import model.Professor;
 
 public class ProfessorMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
@@ -46,7 +44,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
 
         //Instancing Views.
         joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
-        rvClasses = (RecyclerView) findViewById(R.id.studentNewClassList);
+        rvClasses = (RecyclerView) findViewById(R.id.homeworkRecycler);
 
         //Recycler View
         mCourses = (ArrayList<Course>) courseController.getAllCourses(professorName);

@@ -6,21 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ProfessorCreateClass">
 
-    <EditText
-        android:id="@+id/lecturerNameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Lecturer Name"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classNameText"
-        app:layout_constraintVertical_bias="0.146" />
-
     <TextView
         android:id="@+id/createClassTitle"
         android:layout_width="wrap_content"
@@ -44,8 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lecturerNameText"
-        app:layout_constraintVertical_bias="0.302" />
+        app:layout_constraintTop_toBottomOf="@+id/classNameText" />
 
     <EditText
         android:id="@+id/classNameText"

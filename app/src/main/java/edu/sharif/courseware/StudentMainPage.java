@@ -15,7 +15,6 @@ import adapters.CourseRecyclerAdapter;
 import controller.CourseController;
 import controller.UserController;
 import model.Course;
-import model.Professor;
 
 public class StudentMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
@@ -41,7 +40,7 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
 
         //Instancing Views.
         joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
-        rvClasses = (RecyclerView) findViewById(R.id.studentNewClassList);
+        rvClasses = (RecyclerView) findViewById(R.id.homeworkRecycler);
 
         //Recycler View.
         mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this,studentUsername);
