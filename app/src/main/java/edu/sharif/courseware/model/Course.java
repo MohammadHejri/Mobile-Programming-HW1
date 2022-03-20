@@ -125,9 +125,6 @@ public class Course {
     public static ArrayList<Course> getStudentEnrolledCourses(Context context, String student_username) {
         courseDBHelper = new DBHelper(context);
         SQLiteDatabase db = courseDBHelper.getReadableDatabase();
-/*
-        String[] columns = {DBHelper.COURSE_ID, DBHelper.CO_STU_STUDENT};
-*/
         String[] columns = {DBHelper.COURSE_ID};
         String selection = DBHelper.CO_STU_STUDENT + " = ?";
         String[] selectionArgs = { student_username };
@@ -142,21 +139,11 @@ public class Course {
     }
 
     public static ArrayList<Course> getStudentNotEnrolledCourses(Context context, String student_username) {
-        /*courseDBHelper = new DBHelper(context);
-        SQLiteDatabase db = courseDBHelper.getReadableDatabase();
-        String query = "SELECT DISTINCT course_id FROM course_student WHERE student <> ?";
-        Cursor cursor = db.rawQuery(query, new String[]{student_username});
-        ArrayList<Course> courses = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            int course_id = (int) cursor.getLong(cursor.getColumnIndex(DBHelper.COURSE_ID));
-            courses.add(Course.getCourse(context, course_id));
-        }
-        cursor.close();
-        return courses;*/
         courseDBHelper = new DBHelper(context);
         SQLiteDatabase db = courseDBHelper.getReadableDatabase();
-        String query = "SELECT DISTINCT course_id FROM course";
-        Cursor cursor = db.rawQuery(query, new String[]{});
+        String query = "SELECT DISTINCT course_id FROM course WHERE course.course_id NOT IN "
+                + "(SELECT DISTINCT course_student.course_id FROM course_student WHERE course_student.student = ?)";
+        Cursor cursor = db.rawQuery(query, new String[]{student_username});
         ArrayList<Course> courses = new ArrayList<>();
         while (cursor.moveToNext()) {
             int course_id = (int) cursor.getLong(cursor.getColumnIndex(DBHelper.COURSE_ID));
