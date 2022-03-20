@@ -81,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
                         registerController.registerProfessor(firstName, lastName, username, password, extraInfo);
                     String welcomeMessage = "Account successfully created!";
                     Toast.makeText(getApplicationContext(), welcomeMessage, Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    finish();
                 }
             }
         });
@@ -194,7 +194,7 @@ public class RegisterActivity extends AppCompatActivity {
         signInTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
             }
         });
 
