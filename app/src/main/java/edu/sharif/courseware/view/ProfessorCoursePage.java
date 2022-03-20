@@ -7,34 +7,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import edu.sharif.courseware.R;
 import edu.sharif.courseware.adapters.CourseRecyclerAdapter;
+import edu.sharif.courseware.adapters.HomeworkRecyclerAdapter;
 import edu.sharif.courseware.controller.CourseController;
+import edu.sharif.courseware.controller.HomeworkController;
 import edu.sharif.courseware.model.Course;
 import edu.sharif.courseware.model.CourseRepository;
+import edu.sharif.courseware.model.Homework;
 import edu.sharif.courseware.model.LoginRepository;
 
-public class ProfessorMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
+public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRecyclerAdapter.OnHomeworkListener {
 
-    private CourseController courseController;
+    private HomeworkController homeworkController;
 
     private RecyclerView rvClasses;
-    private CourseRecyclerAdapter adapter;
-    private ArrayList<Course> mCourses;
+    private HomeworkRecyclerAdapter adapter;
+    private ArrayList<Homework> mHomeworks;
 
-    private void createClassViaPopUp() {
+    private void createHomeworkViaPopUp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter course name");
+        builder.setTitle("Enter homework name");
 
         final EditText input = new EditText(this);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -46,16 +47,17 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String courseName = input.getText().toString();
-                String error = courseController.getCourseNameError(courseName);
+                String homeworkName = input.getText().toString();
+                String error = homeworkController.getHomeworkError(homeworkName);
                 input.setError(error);
                 if (error == null) {
-                    Course newCourse = courseController.createCourse(courseName, LoginRepository.getInstance().getUsername());
-                    mCourses.add(newCourse);
-                    adapter.notifyItemInserted(mCourses.size() - 1);
+                    Homework newHomework = homeworkController.createHomework(CourseRepository.getInstance().getCourseId(), homeworkName, "Alaki Q");
+                    mHomeworks.add(newHomework);
+                    adapter.notifyItemInserted(mHomeworks.size() - 1);
                     dialog.dismiss();
-            }
-        }});
+
+                }
+            }});
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -68,22 +70,22 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_professor_main_page);
+        setContentView(R.layout.activity_professor_course_page);
 
-        courseController = new CourseController(this);
+        homeworkController = new HomeworkController(this);
 
-        Button createClassBtn = findViewById(R.id.createClassBtn);
-        createClassBtn.setOnClickListener(new View.OnClickListener() {
+        Button createHomeworkButton = findViewById(R.id.createHomeworkButton);
+        createHomeworkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createClassViaPopUp();
+                createHomeworkViaPopUp();
             }
         });
 
-        mCourses = courseController.getCoursesByProfessorID(LoginRepository.getInstance().getUsername());
-        rvClasses = findViewById(R.id.professorMainList);
+        mHomeworks = homeworkController.getHomeworksByCourse(Integer.parseInt(CourseRepository.getInstance().getCourseId()));
+        rvClasses = findViewById(R.id.courseHomeworks);
         rvClasses.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CourseRecyclerAdapter(mCourses,this);
+        adapter = new HomeworkRecyclerAdapter(mHomeworks,this);
         rvClasses.setAdapter(adapter);
     }
 
@@ -91,17 +93,14 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
     @Override
     protected void onResume() {
         super.onResume();
-        mCourses = courseController.getCoursesByProfessorID(LoginRepository.getInstance().getUsername());
-        adapter.changeDataSet(mCourses);
+        mHomeworks = homeworkController.getHomeworksByCourse(Integer.parseInt(CourseRepository.getInstance().getCourseId()));
+        adapter.changeDataSet(mHomeworks);
         adapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onCourseClick(int position) {
-        Course course = mCourses.get(position);
-        CourseRepository.getInstance().setCourseId(String.valueOf(course.getId()));
-        Toast.makeText(getApplicationContext(), course.getName(), Toast.LENGTH_LONG).show();
-        startActivity(new Intent(ProfessorMainPage.this, ProfessorCoursePage.class));
+    public void onHomeworkClick(int position) {
+        // TODO
     }
 
 }

@@ -3,43 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2605" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable/background_3.xml" value="0.2605" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable/button_background_error.xml" value="0.1" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable/courseware_background.xml" value="0.297" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable/gradient_list.xml" value="0.275" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable/ic_baseline_class_24.xml" value="0.2605" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable/ic_baseline_menu_book_24.xml" value="0.2605" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/drawable/ic_launcher_background.xml" value="0.297" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.34217687074829933" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_class_join.xml" value="0.6359773371104815" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_course_list.xml" value="0.5" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_course_main_page.xml" value="0.33" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_course_student_main_page.xml" value="0.4784263959390863" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_homework_page.xml" value="0.33" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_homework_student_page.xml" value="0.33" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_login.xml" value="0.2546875" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_professor_create_class.xml" value="0.5" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_professor_main.xml" value="0.5" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_professor_main_page.xml" value="0.5" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_professor_page.xml" value="0.33" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_register.xml" value="0.25" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_scrolling.xml" value="0.33" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_student_join_class.xml" value="0.5" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_student_main.xml" value="0.67" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/activity_student_main_page.xml" value="0.5" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/class_item.xml" value="0.1" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/content_professor_main.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/content_scrolling.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/create_class_popup.xml" value="0.5" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/join_popup.xml" value="0.67" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/my_error_dialog.xml" value="0.24836601307189543" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/recyclerview_row.xml" value="0.23020833333333332" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/student_join_class_activity.xml" value="0.5" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/student_main_activity.xml" value="0.45925925925925926" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/layout/user_activity.xml" value="0.5" />
-        <entry key="..\:/Users/Arya/Desktop/Mobile-Programming-HW1/app/src/main/res/mipmap-anydpi-v26/courseware.xml" value="0.2605" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1785" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1785" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/activity_course_list.xml" value="0.1796875" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/activity_login2.xml" value="0.1796875" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/activity_professor_course_page.xml" value="0.1796875" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/activity_professor_create_class.xml" value="0.22" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/activity_professor_main_page.xml" value="0.1796875" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/activity_register.xml" value="0.22" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/activity_student_join_class.xml" value="0.1796875" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/activity_student_main_page.xml" value="0.1796875" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/my_error_dialog.xml" value="0.1796875" />
       </map>
     </option>
   </component>

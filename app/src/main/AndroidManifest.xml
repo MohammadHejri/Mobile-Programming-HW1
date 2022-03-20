@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Courseware">
         <activity
+            android:name=".view.ProfessorCoursePage"
+            android:exported="false" />
+        <activity
             android:name=".view.RegisterActivity"
             android:exported="false"
             android:parentActivityName=".view.LoginActivity" />
@@ -22,19 +25,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".view.StudentMainPage"
+        <activity
+            android:name=".view.StudentMainPage"
             android:exported="false"
-            android:parentActivityName=".view.LoginActivity"/>
-
-        <activity android:name=".view.StudentJoinClass"
+            android:parentActivityName=".view.LoginActivity" />
+        <activity
+            android:name=".view.StudentJoinClass"
             android:exported="false"
-            android:parentActivityName=".view.StudentMainPage"/>
-
-        <activity android:name=".view.ProfessorMainPage"
+            android:parentActivityName=".view.StudentMainPage" />
+        <activity
+            android:name=".view.ProfessorMainPage"
             android:exported="false"
-            android:parentActivityName=".view.LoginActivity"/>
-
+            android:parentActivityName=".view.LoginActivity" />
     </application>
 
 </manifest>
