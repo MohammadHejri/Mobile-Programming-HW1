@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -16,7 +14,6 @@ import java.util.ArrayList;
 import edu.sharif.courseware.R;
 import edu.sharif.courseware.adapters.CourseRecyclerAdapter;
 import edu.sharif.courseware.controller.CourseController;
-import edu.sharif.courseware.controller.UserController;
 import edu.sharif.courseware.model.Course;
 import edu.sharif.courseware.model.LoginRepository;
 
@@ -38,18 +35,13 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
         //Instancing Controllers.
         courseController = new CourseController(StudentMainPage.this);
 
-        Button joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
-        joinClassBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(StudentMainPage.this, StudentJoinClass.class));
-            }
-        });
+        Button joinClassBtn = findViewById(R.id.joinClassBtn);
+        joinClassBtn.setOnClickListener(view -> startActivity(new Intent(StudentMainPage.this, StudentJoinClass.class)));
 
         mCourses = courseController.getStudentEnrolledCourses(LoginRepository.getInstance().getUsername());
         rvClasses = (RecyclerView) findViewById(R.id.studentMainList);
         rvClasses.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CourseRecyclerAdapter(mCourses,this);
+        adapter = new CourseRecyclerAdapter(mCourses, this);
         rvClasses.setAdapter(adapter);
     }
 

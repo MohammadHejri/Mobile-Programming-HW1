@@ -6,10 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -41,25 +38,18 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         input.setLayoutParams(lp);
         builder.setView(input);
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String courseName = input.getText().toString();
-                String error = courseController.getCourseNameError(courseName);
-                input.setError(error);
-                if (error == null) {
-                    Course newCourse = courseController.createCourse(courseName, LoginRepository.getInstance().getUsername());
-                    mCourses.add(newCourse);
-                    adapter.notifyItemInserted(mCourses.size() - 1);
-                    dialog.dismiss();
-            }
-        }});
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            String courseName = input.getText().toString();
+            String error = courseController.getCourseNameError(courseName);
+            input.setError(error);
+            if (error == null) {
+                Course newCourse = courseController.createCourse(courseName, LoginRepository.getInstance().getUsername());
+                mCourses.add(newCourse);
+                adapter.notifyItemInserted(mCourses.size() - 1);
+                dialog.dismiss();
+        }
+    });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
         builder.show();
     }
 
@@ -71,12 +61,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         courseController = new CourseController(this);
 
         Button createClassBtn = findViewById(R.id.createClassBtn);
-        createClassBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createClassViaPopUp();
-            }
-        });
+        createClassBtn.setOnClickListener(view -> createClassViaPopUp());
 
         mCourses = courseController.getCoursesByProfessorID(LoginRepository.getInstance().getUsername());
         rvClasses = findViewById(R.id.professorMainList);
