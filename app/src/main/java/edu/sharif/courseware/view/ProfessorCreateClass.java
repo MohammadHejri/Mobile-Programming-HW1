@@ -40,7 +40,6 @@ public class ProfessorCreateClass extends AppCompatActivity {
         courseController = new CourseController(ProfessorCreateClass.this);
 
 
-
         setContentView(R.layout.activity_professor_create_class);
         createClassBtn = (Button) findViewById(R.id.createClassBtn);
         classNameText = (TextView) findViewById(R.id.classNameText);
@@ -52,10 +51,11 @@ public class ProfessorCreateClass extends AppCompatActivity {
                 if (className.isEmpty()) {
                     String errorMessage = "please fill out all required fields.";
                     showAlertDialog(R.layout.my_error_dialog, errorMessage);
+                } else {
+                    courseController.createCourse(className, LoginRepository.getInstance().getUsername());
+                    //TODO
+                    finish();
                 }
-                courseController.createCourse(className, LoginRepository.getInstance().getUsername());
-                //TODO
-                finish();
             }
         });
     }

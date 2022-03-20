@@ -7,7 +7,7 @@
     tools:context=".CourseStudentMainPage">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/studentMainList"
+        android:id="@+id/professorMainList"
         android:layout_width="match_parent"
         android:layout_height="600dp"
         app:layout_constraintBottom_toBottomOf="parent"

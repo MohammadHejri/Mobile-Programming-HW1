@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -46,12 +47,12 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
         //Recycler View.
         try {
             mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this, studentUsername);
+            Log.d("DEBUG",Integer.toString(mCourses.size()));
         }catch (Exception e) {
+            Log.d("DEBUG",e.getMessage());
             mCourses = new ArrayList<>();
         }
-        adapter = new CourseRecyclerAdapter(mCourses,this);
-        rvClasses.setAdapter(adapter);
-        rvClasses.setLayoutManager(new LinearLayoutManager(this));
+        initRecycler();
 
         //Add functionality.
         joinClassBtn.setOnClickListener(new View.OnClickListener() {
@@ -64,9 +65,21 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
         });
     }
 
+    private void initRecycler() {
+        adapter = new CourseRecyclerAdapter(mCourses,this);
+        rvClasses.setAdapter(adapter);
+        rvClasses.setLayoutManager(new LinearLayoutManager(this));
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        try {
+            mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this, studentUsername);
+        }catch (Exception e) {
+            mCourses = new ArrayList<>();
+        }
+        initRecycler();
         //TODO
     }
 

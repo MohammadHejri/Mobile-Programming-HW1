@@ -1,11 +1,14 @@
 package edu.sharif.courseware.view;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,6 +20,7 @@ import edu.sharif.courseware.adapters.CourseRecyclerAdapter;
 import edu.sharif.courseware.controller.CourseController;
 import edu.sharif.courseware.controller.UserController;
 import edu.sharif.courseware.model.Course;
+import edu.sharif.courseware.model.LoginRepository;
 
 public class StudentJoinClass extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
@@ -29,13 +33,15 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
     private UserController userController;
     private String studentUsername;
 
+    AlertDialog.Builder builderDialog;
+    AlertDialog alertDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_join_class);
 
-        Intent intent = getIntent();
-        this.studentUsername = intent.getStringExtra("studentUsername");
+        this.studentUsername = LoginRepository.getInstance().getUsername();
 
         //Instancing Controllers
         courseController = new CourseController(StudentJoinClass.this);
@@ -47,15 +53,15 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
         classIdJoin = (TextView) findViewById(R.id.classIdJoin);
         rvClasses = (RecyclerView) findViewById(R.id.studentJoinList);
 
-        //Testing
 
         //Recycler View.
         try {
             mCourses = Course.getStudentNotEnrolledCourses(StudentJoinClass.this, studentUsername);
-        } catch (Exception e){
+            Log.d("DEBUG", Integer.toString(mCourses.size()));
+        } catch (Exception e) {
             mCourses = new ArrayList<>();
         }
-        adapter = new CourseRecyclerAdapter(mCourses,this);
+        adapter = new CourseRecyclerAdapter(mCourses, this);
         rvClasses.setAdapter(adapter);
         rvClasses.setLayoutManager(new LinearLayoutManager(this));
 
@@ -64,18 +70,45 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
             @Override
             public void onClick(View view) {
                 String classId = classIdJoin.getText().toString();
-                courseController.addStudentToCourse(studentUsername, Integer.parseInt(classId));
+                if (classId.isEmpty()) {
+                    showAlertDialog(R.layout.my_error_dialog, "Class Id is empty.");
+                } else {
+                    courseController.addStudentToCourse(studentUsername, Integer.parseInt(classId));
+                    finish();
+                }
             }
         });
     }
 
     @Override
     public void onCourseClick(int position) {
-        if(position == -1)
+        if (position == -1)
             return;
         courseController.addStudentToCourse(studentUsername, mCourses.get(position).getId());
         mCourses.remove(position);
         adapter.notifyItemRemoved(position);
         //TODO
+    }
+
+    private void showAlertDialog(int myLayout, String errorMessage) {
+        builderDialog = new AlertDialog.Builder(this);
+        View layoutView = getLayoutInflater().inflate(myLayout, null);
+
+        AppCompatButton dialogButton = layoutView.findViewById(R.id.bottomOk);
+        TextView textView = layoutView.findViewById(R.id.popUpErrorMessage);
+
+
+        textView.setText(errorMessage);
+        builderDialog.setView(layoutView);
+        alertDialog = builderDialog.create();
+        alertDialog.show();
+
+        //Close the dialog
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
     }
 }

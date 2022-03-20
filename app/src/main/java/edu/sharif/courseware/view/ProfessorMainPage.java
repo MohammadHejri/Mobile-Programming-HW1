@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -46,7 +46,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
 
         //Instancing Views.
         joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
-        rvClasses = (RecyclerView) findViewById(R.id.studentMainList);
+        rvClasses = (RecyclerView) findViewById(R.id.professorMainList);
 
         //Recycler View
         try {
@@ -54,9 +54,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         } catch (Exception e){
             mCourses = new ArrayList<>();
         }
-        adapter = new CourseRecyclerAdapter(mCourses,this);
-        rvClasses.setAdapter(adapter);
-        rvClasses.setLayoutManager(new LinearLayoutManager(this));
+        initRecycler();
 
         //Add functionality.
         joinClassBtn.setOnClickListener(new View.OnClickListener() {
@@ -69,11 +67,18 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         });
     }
 
+    private void initRecycler() {
+        adapter = new CourseRecyclerAdapter(mCourses,this);
+        rvClasses.setAdapter(adapter);
+        rvClasses.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onResume() {
         super.onResume();
         mCourses = (ArrayList<Course>) courseController.getAllCourses(professorName);
-        adapter.notifyDataSetChanged();
+        initRecycler();
     }
 
     @Override
