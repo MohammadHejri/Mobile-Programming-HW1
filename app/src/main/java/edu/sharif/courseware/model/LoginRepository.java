@@ -19,6 +19,10 @@ public class LoginRepository {
         this.username = username;
     }
 
+    public String getUsername() {
+        return this.username;
+    }
+
     public void logOut() {
         this.username = null;
     }

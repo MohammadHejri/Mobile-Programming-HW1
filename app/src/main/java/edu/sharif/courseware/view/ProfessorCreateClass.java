@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import edu.sharif.courseware.R;
 import edu.sharif.courseware.controller.CourseController;
 import edu.sharif.courseware.controller.UserController;
+import edu.sharif.courseware.model.LoginRepository;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +19,6 @@ public class ProfessorCreateClass extends AppCompatActivity {
 
     Button createClassBtn;
     TextView classNameText;
-    TextView lecturerNameText;
     //Error Dialog
     AlertDialog.Builder builderDialog;
     AlertDialog alertDialog;
@@ -49,12 +49,11 @@ public class ProfessorCreateClass extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String className = classNameText.getText().toString();
-                String lecturerName = ProfessorCreateClass.this.professorName;
-                if (className.isEmpty() || lecturerName.isEmpty()) {
+                if (className.isEmpty()) {
                     String errorMessage = "please fill out all required fields.";
                     showAlertDialog(R.layout.my_error_dialog, errorMessage);
                 }
-                courseController.createCourse(className, lecturerName);
+                courseController.createCourse(className, LoginRepository.getInstance().getUsername());
                 //TODO
                 finish();
             }

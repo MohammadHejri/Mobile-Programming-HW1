@@ -15,6 +15,8 @@ import android.widget.Toast;
 import edu.sharif.courseware.R;
 import edu.sharif.courseware.controller.LoginController;
 import edu.sharif.courseware.model.LoginRepository;
+import edu.sharif.courseware.model.Professor;
+import edu.sharif.courseware.model.Student;
 import edu.sharif.courseware.model.User;
 
 public class LoginActivity extends AppCompatActivity {
@@ -51,6 +53,14 @@ public class LoginActivity extends AppCompatActivity {
                     LoginRepository.getInstance().logIn(username);
                     String welcomeMessage = "Welcome " + user.getFirstname() + "!";
                     Toast.makeText(getApplicationContext(), welcomeMessage, Toast.LENGTH_SHORT).show();
+                    if (user instanceof Professor) {
+                        Intent intent = new Intent(LoginActivity.this, ProfessorMainPage.class);
+                        startActivity(intent);
+                    } else if (user instanceof Student) {
+                        Intent intent = new Intent(LoginActivity.this, StudentMainPage.class);
+                        startActivity(intent);
+                    }
+
                 }
             }
         });

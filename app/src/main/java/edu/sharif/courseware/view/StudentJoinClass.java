@@ -50,7 +50,11 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
         //Testing
 
         //Recycler View.
-        mCourses = Course.getStudentNotEnrolledCourses(StudentJoinClass.this, studentUsername);
+        try {
+            mCourses = Course.getStudentNotEnrolledCourses(StudentJoinClass.this, studentUsername);
+        } catch (Exception e){
+            mCourses = new ArrayList<>();
+        }
         adapter = new CourseRecyclerAdapter(mCourses,this);
         rvClasses.setAdapter(adapter);
         rvClasses.setLayoutManager(new LinearLayoutManager(this));

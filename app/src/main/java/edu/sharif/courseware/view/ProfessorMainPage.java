@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,6 +18,7 @@ import edu.sharif.courseware.adapters.CourseRecyclerAdapter;
 import edu.sharif.courseware.controller.CourseController;
 import edu.sharif.courseware.controller.UserController;
 import edu.sharif.courseware.model.Course;
+import edu.sharif.courseware.model.LoginRepository;
 
 public class ProfessorMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
@@ -36,8 +38,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professor_main_page);
 
-        Intent intent = getIntent();
-        this.professorName = intent.getStringExtra("professorName");
+        this.professorName = LoginRepository.getInstance().getUsername();
 
         //Instancing Controllers
         courseController = new CourseController(ProfessorMainPage.this);
@@ -48,7 +49,11 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         rvClasses = (RecyclerView) findViewById(R.id.studentMainList);
 
         //Recycler View
-        mCourses = (ArrayList<Course>) courseController.getAllCourses(professorName);
+        try {
+            mCourses = (ArrayList<Course>) courseController.getAllCourses(professorName);
+        } catch (Exception e){
+            mCourses = new ArrayList<>();
+        }
         adapter = new CourseRecyclerAdapter(mCourses,this);
         rvClasses.setAdapter(adapter);
         rvClasses.setLayoutManager(new LinearLayoutManager(this));
@@ -67,6 +72,8 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
     @Override
     protected void onResume() {
         super.onResume();
+        mCourses = (ArrayList<Course>) courseController.getAllCourses(professorName);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

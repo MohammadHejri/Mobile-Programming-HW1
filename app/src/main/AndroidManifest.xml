@@ -22,6 +22,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".view.StudentMainPage"
+            android:exported="false"
+            android:parentActivityName=".view.LoginActivity"/>
+
+        <activity android:name=".view.ProfessorMainPage"
+            android:exported="false"
+            android:parentActivityName=".view.LoginActivity"/>
+
+        <activity android:name=".view.ProfessorCreateClass"
+            android:exported="false"
+            android:parentActivityName=".view.ProfessorMainPage"/>
+
     </application>
 
 </manifest>

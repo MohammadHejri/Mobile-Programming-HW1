@@ -44,7 +44,11 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
         rvClasses = (RecyclerView) findViewById(R.id.studentMainList);
 
         //Recycler View.
-        mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this,studentUsername);
+        try {
+            mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this, studentUsername);
+        }catch (Exception e) {
+            mCourses = new ArrayList<>();
+        }
         adapter = new CourseRecyclerAdapter(mCourses,this);
         rvClasses.setAdapter(adapter);
         rvClasses.setLayoutManager(new LinearLayoutManager(this));
