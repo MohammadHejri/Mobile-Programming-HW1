@@ -19,6 +19,7 @@ public class Submission {
         this.answer = answer;
         this.student = student;
         this.homework = homework;
+        this.mark = -1;
     }
 
     public String getAnswer() {

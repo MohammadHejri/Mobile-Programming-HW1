@@ -1,5 +1,7 @@
 package edu.sharif.courseware.model;
 
+import android.content.Context;
+
 public class CourseRepository {
 
     private static CourseRepository instance;
@@ -13,6 +15,14 @@ public class CourseRepository {
 
     public String getCourseId() {
         return this.courseId;
+    }
+
+    public Course getCourse(Context context) {
+        try {
+            return Course.getCourse(context, Integer.parseInt(courseId));
+        }catch(Exception e) {
+            return null;
+        }
     }
 
     public void setCourseId(String courseId) {
