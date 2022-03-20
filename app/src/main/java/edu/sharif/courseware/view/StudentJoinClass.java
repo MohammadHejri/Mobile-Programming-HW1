@@ -45,7 +45,7 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
         //Instancing Views.
         joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
         classIdJoin = (TextView) findViewById(R.id.classIdJoin);
-        rvClasses = (RecyclerView) findViewById(R.id.studentNewClassList);
+        rvClasses = (RecyclerView) findViewById(R.id.studentJoinList);
 
         //Testing
 

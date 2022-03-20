@@ -45,7 +45,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
 
         //Instancing Views.
         joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
-        rvClasses = (RecyclerView) findViewById(R.id.studentNewClassList);
+        rvClasses = (RecyclerView) findViewById(R.id.studentMainList);
 
         //Recycler View
         mCourses = (ArrayList<Course>) courseController.getAllCourses(professorName);

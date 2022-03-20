@@ -41,7 +41,7 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
 
         //Instancing Views.
         joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
-        rvClasses = (RecyclerView) findViewById(R.id.studentNewClassList);
+        rvClasses = (RecyclerView) findViewById(R.id.studentMainList);
 
         //Recycler View.
         mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this,studentUsername);

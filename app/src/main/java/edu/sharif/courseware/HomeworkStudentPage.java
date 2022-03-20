@@ -9,10 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import controller.CourseController;
-import controller.HomeworkController;
-import controller.UserController;
-import model.Homework;
+import edu.sharif.courseware.controller.CourseController;
+import edu.sharif.courseware.controller.HomeworkController;
+import edu.sharif.courseware.controller.UserController;
+import edu.sharif.courseware.model.Homework;
 
 public class HomeworkStudentPage extends AppCompatActivity {
 
