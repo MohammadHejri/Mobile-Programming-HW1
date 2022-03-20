@@ -2,10 +2,12 @@ package edu.sharif.courseware.controller;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.sharif.courseware.model.Course;
 import edu.sharif.courseware.model.Homework;
+import edu.sharif.courseware.model.LoginRepository;
 import edu.sharif.courseware.model.Professor;
 
 public class CourseController {
@@ -33,9 +35,13 @@ public class CourseController {
         return Course.getCoursesOfOwner(context, professor);
     }
 
-    public List<Course> getAllCourses(String professorName) {
-        Professor professor = Professor.getProfessor(context, professorName);
-        return Course.getCoursesOfOwner(context,professor);
+    public ArrayList<Course> getCoursesByProfessorID(String professorID) {
+        Professor professor = Professor.getProfessor(context, professorID);
+        try {
+            return Course.getCoursesOfOwner(context, professor);
+        } catch (Exception e){
+            return new ArrayList<>();
+        }
     }
 
     public List<Homework> getAllHomeworks(int id) {

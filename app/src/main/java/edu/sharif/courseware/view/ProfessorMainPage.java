@@ -16,55 +16,35 @@ import java.util.ArrayList;
 import edu.sharif.courseware.R;
 import edu.sharif.courseware.adapters.CourseRecyclerAdapter;
 import edu.sharif.courseware.controller.CourseController;
-import edu.sharif.courseware.controller.UserController;
 import edu.sharif.courseware.model.Course;
 import edu.sharif.courseware.model.LoginRepository;
 
 public class ProfessorMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
-    Button joinClassBtn;
-    RecyclerView rvClasses;
-    CourseRecyclerAdapter adapter;
-
-
-    private ArrayList<Course> mCourses = new ArrayList<>();
     private CourseController courseController;
-    private UserController userController;
-    private String professorName;
 
+    private RecyclerView rvClasses;
+    private CourseRecyclerAdapter adapter;
+    private ArrayList<Course> mCourses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professor_main_page);
 
-        this.professorName = LoginRepository.getInstance().getUsername();
+        courseController = new CourseController(this);
 
-        //Instancing Controllers
-        courseController = new CourseController(ProfessorMainPage.this);
-        userController = new UserController(ProfessorMainPage.this);
-
-        //Instancing Views.
-        joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
-        rvClasses = (RecyclerView) findViewById(R.id.professorMainList);
-
-        //Recycler View
-        try {
-            mCourses = (ArrayList<Course>) courseController.getAllCourses(professorName);
-        } catch (Exception e){
-            mCourses = new ArrayList<>();
-        }
-        initRecycler();
-
-        //Add functionality.
-        joinClassBtn.setOnClickListener(new View.OnClickListener() {
+        Button createClassBtn = (Button) findViewById(R.id.createClassBtn);
+        createClassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfessorMainPage.this, ProfessorCreateClass.class);
-                intent.putExtra("professorName", professorName);
-                startActivity(intent);
+                startActivity(new Intent(ProfessorMainPage.this, ProfessorCreateClass.class));
             }
         });
+
+        rvClasses = (RecyclerView) findViewById(R.id.professorMainList);
+        mCourses = courseController.getCoursesByProfessorID(LoginRepository.getInstance().getUsername());
+        initRecycler();
     }
 
     private void initRecycler() {
@@ -77,7 +57,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
     @Override
     protected void onResume() {
         super.onResume();
-        mCourses = (ArrayList<Course>) courseController.getAllCourses(professorName);
+        mCourses = courseController.getCoursesByProfessorID(LoginRepository.getInstance().getUsername());
         initRecycler();
     }
 
