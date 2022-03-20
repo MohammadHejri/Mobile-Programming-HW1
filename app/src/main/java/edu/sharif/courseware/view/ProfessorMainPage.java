@@ -42,15 +42,11 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
             }
         });
 
-        rvClasses = (RecyclerView) findViewById(R.id.professorMainList);
         mCourses = courseController.getCoursesByProfessorID(LoginRepository.getInstance().getUsername());
-        initRecycler();
-    }
-
-    private void initRecycler() {
+        rvClasses = (RecyclerView) findViewById(R.id.professorMainList);
+        rvClasses.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CourseRecyclerAdapter(mCourses,this);
         rvClasses.setAdapter(adapter);
-        rvClasses.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -58,18 +54,19 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
     protected void onResume() {
         super.onResume();
         mCourses = courseController.getCoursesByProfessorID(LoginRepository.getInstance().getUsername());
-        initRecycler();
+        adapter.changeDataSet(mCourses);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //TODO
+        // TODO
     }
 
     @Override
     public void onCourseClick(int position) {
-        //TODO
+        // TODO
     }
 
 }

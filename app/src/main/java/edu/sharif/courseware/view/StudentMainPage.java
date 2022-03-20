@@ -54,12 +54,9 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
         joinClassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-<<<<<<< HEAD
                 Intent intent = new Intent(StudentMainPage.this, StudentJoinClass.class);
                 startActivity(intent);
-=======
                 startActivity(new Intent(StudentMainPage.this, StudentJoinClass.class));
->>>>>>> 305f99747bbf5a070e377162e730ccf41bb06faa
             }
         });
     }
