@@ -27,6 +27,22 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
     private CourseRecyclerAdapter adapter;
     private ArrayList<Course> mCourses;
 
+    private void confirmationPopUp(int position) {
+        String courseName = mCourses.get(position).getName() + " course";
+        new AlertDialog.Builder(this)
+                .setTitle("Join Course")
+                .setMessage("Are you sure to join " + courseName + "?")
+                .setIcon(R.drawable.ic_join)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        courseController.addStudentToCourse(LoginRepository.getInstance().getUsername(), mCourses.get(position).getId());
+                        mCourses.remove(position);
+                        adapter.notifyItemRemoved(position);
+                        Toast.makeText(StudentJoinClass.this, "Successfully joined " + courseName, Toast.LENGTH_SHORT).show();
+                    }})
+                .setNegativeButton(android.R.string.no, null).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,24 +68,10 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
                 for (Course course : mCourses)
                     if (course.getId() == Integer.parseInt(classId))
                         position = mCourses.indexOf(course);
-                if (position == -1) {
+                if (position == -1)
                     classIdJoin.setError("Course not found");
-                } else {
-                    int finalPosition = position;
-                    new AlertDialog.Builder(this)
-                            .setTitle("Course Enrollment")
-                            .setMessage("Are you sure to join " + mCourses.get(position).getName() + " course?")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    courseController.addStudentToCourse(LoginRepository.getInstance().getUsername(), mCourses.get(finalPosition).getId());
-                                    mCourses.remove(finalPosition);
-                                    adapter.notifyItemRemoved(finalPosition);
-                                    Toast.makeText(StudentJoinClass.this, "Successfully joined!", Toast.LENGTH_SHORT).show();
-                                    classIdJoin.setText(null);
-                                }})
-                            .setNegativeButton(android.R.string.no, null).show();
-                }
+                else
+                    confirmationPopUp(position);
             }
         });
     }
@@ -78,17 +80,6 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
     public void onCourseClick(int position) {
         if (position == -1)
             return;
-        new AlertDialog.Builder(this)
-                .setTitle("Course Enrollment")
-                .setMessage("Are you sure to join " + mCourses.get(position).getName() + " course?")
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        courseController.addStudentToCourse(LoginRepository.getInstance().getUsername(), mCourses.get(position).getId());
-                        mCourses.remove(position);
-                        adapter.notifyItemRemoved(position);
-                        Toast.makeText(StudentJoinClass.this, "Successfully joined!", Toast.LENGTH_SHORT).show();
-                    }})
-                .setNegativeButton(android.R.string.no, null).show();
+        confirmationPopUp(position);
     }
 }
