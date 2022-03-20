@@ -1,5 +1,6 @@
 package edu.sharif.courseware.view;
 
+import androidx.annotation.GravityInt;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,27 +37,37 @@ public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRe
 
     private void createHomeworkViaPopUp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter homework name");
+        builder.setTitle("Enter homework description");
 
-        final EditText input = new EditText(this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+        final EditText nameInput = new EditText(this);
+        final EditText questionInput = new EditText(this);
+        nameInput.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        input.setLayoutParams(lp);
-        builder.setView(input);
+                LinearLayout.LayoutParams.MATCH_PARENT));
+        nameInput.setHint("Name");
+        questionInput.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                getWindowManager().getDefaultDisplay().getHeight() / 4));
+        questionInput.setHint("Question");
+        questionInput.setGravity(Gravity.BOTTOM);
+        LinearLayout layout = new LinearLayout(getApplicationContext());
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.addView(nameInput);
+        layout.addView(questionInput);
+        builder.setView(layout);
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String homeworkName = input.getText().toString();
+                String homeworkName = nameInput.getText().toString();
+                String homeworkQuestion = questionInput.getText().toString();
                 String error = homeworkController.getHomeworkError(homeworkName);
-                input.setError(error);
+                nameInput.setError(error);
                 if (error == null) {
-                    Homework newHomework = homeworkController.createHomework(CourseRepository.getInstance().getCourseId(), homeworkName, "Alaki Q");
+                    Homework newHomework = homeworkController.createHomework(CourseRepository.getInstance().getCourseId(), homeworkName, homeworkQuestion);
                     mHomeworks.add(newHomework);
                     adapter.notifyItemInserted(mHomeworks.size() - 1);
                     dialog.dismiss();
-
                 }
             }});
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
