@@ -71,7 +71,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
 
         courseController = new CourseController(this);
 
-        Button createClassBtn = (Button) findViewById(R.id.createClassBtn);
+        Button createClassBtn = findViewById(R.id.createClassBtn);
         createClassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +81,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         });
 
         mCourses = courseController.getCoursesByProfessorID(LoginRepository.getInstance().getUsername());
-        rvClasses = (RecyclerView) findViewById(R.id.professorMainList);
+        rvClasses = findViewById(R.id.professorMainList);
         rvClasses.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CourseRecyclerAdapter(mCourses,this);
         rvClasses.setAdapter(adapter);
