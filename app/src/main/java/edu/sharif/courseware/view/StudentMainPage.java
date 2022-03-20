@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ import edu.sharif.courseware.R;
 import edu.sharif.courseware.adapters.CourseRecyclerAdapter;
 import edu.sharif.courseware.controller.CourseController;
 import edu.sharif.courseware.model.Course;
+import edu.sharif.courseware.model.CourseRepository;
 import edu.sharif.courseware.model.LoginRepository;
 
 public class StudentMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
@@ -53,6 +55,9 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
 
     @Override
     public void onCourseClick(int position) {
-        //TODO
+        Course course = mCourses.get(position);
+        CourseRepository.getInstance().setCourseId(String.valueOf(course.getId()));
+        Toast.makeText(getApplicationContext(), course.getName(), Toast.LENGTH_LONG).show();
+        startActivity(new Intent(StudentMainPage.this, StudentCoursePage.class));
     }
 }
