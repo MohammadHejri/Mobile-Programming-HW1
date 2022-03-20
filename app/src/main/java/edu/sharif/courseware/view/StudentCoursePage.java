@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import edu.sharif.courseware.adapters.HomeworkRecyclerAdapter;
 import edu.sharif.courseware.controller.HomeworkController;
 import edu.sharif.courseware.model.CourseRepository;
 import edu.sharif.courseware.model.Homework;
+import edu.sharif.courseware.model.HomeworkRepository;
 
 public class StudentCoursePage extends AppCompatActivity implements HomeworkRecyclerAdapter.OnHomeworkListener {
 
@@ -50,9 +52,9 @@ public class StudentCoursePage extends AppCompatActivity implements HomeworkRecy
     @Override
     public void onHomeworkClick(int position) {
         Homework homework = mHomeworks.get(position);
-        //CourseRepository.getInstance().setCourseId(String.valueOf(course.getId()));
         Toast.makeText(getApplicationContext(), homework.getName(), Toast.LENGTH_LONG).show();
-        //startActivity(new Intent(StudentCoursePage.this, ProfessorCoursePage.class));
+        HomeworkRepository.getInstance().setHomeworkName(homework.getName());
+        startActivity(new Intent(StudentCoursePage.this, StudentHomeworkPage.class));
     }
 
 }
