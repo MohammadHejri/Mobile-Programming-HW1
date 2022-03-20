@@ -19,4 +19,8 @@ public class HomeworkController {
         //TODO
         return null;
     }
+
+    public Homework getHomeworkQuestion(String name, int courseId) {
+        return Homework.getHomework(context, courseId, name);
+    }
 }
