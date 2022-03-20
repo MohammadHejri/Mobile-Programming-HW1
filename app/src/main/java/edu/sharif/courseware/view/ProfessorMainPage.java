@@ -32,7 +32,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
 
     private void popUpEditText() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Comments");
+        builder.setTitle("Name of the class.");
 
         final EditText input = new EditText(this);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -45,11 +45,16 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-                // do something here on OK
-
+                String courseName = input.getText().toString();
+                String error = courseController.getCourseNameError(courseName);
+                input.setError(error);
+                if (error == null) {
+                    Course newCourse = courseController.createCourse(courseName, LoginRepository.getInstance().getUsername());
+                    mCourses.add(newCourse);
+                    adapter.notifyItemInserted(mCourses.size() - 1);
+                    dialog.dismiss();
             }
-        });
+        }});
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -57,7 +62,6 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
             }
         });
         builder.show();
-
     }
 
     @Override
