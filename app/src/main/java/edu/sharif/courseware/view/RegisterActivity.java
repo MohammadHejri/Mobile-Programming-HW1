@@ -2,7 +2,6 @@ package edu.sharif.courseware.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,17 +36,16 @@ public class RegisterActivity extends AppCompatActivity {
         Button signUpButton = (Button) findViewById(R.id.signUpButton);
         signUpButton.setEnabled(false);
 
-        EditText firstNameEditText = (EditText) findViewById(R.id.firstNameEditText);
-        EditText lastNameEditText = (EditText) findViewById(R.id.lastNameEditText);
-        EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
-        EditText passwordEditText = (EditText) findViewById(R.id.passwordEditText);
-        EditText confirmPasswordEditText = (EditText) findViewById(R.id.confirmPasswordEditText);
-        EditText extraInfoEditText = (EditText) findViewById(R.id.extraInfoEditText);
-        TextView signInTextView = (TextView) findViewById(R.id.signInTextView);
+        EditText firstNameEditText = findViewById(R.id.firstNameEditText);
+        EditText lastNameEditText = findViewById(R.id.lastNameEditText);
+        EditText usernameEditText = findViewById(R.id.usernameEditText);
+        EditText passwordEditText = findViewById(R.id.passwordEditText);
+        EditText confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
+        EditText extraInfoEditText = findViewById(R.id.extraInfoEditText);
+        TextView signInTextView = findViewById(R.id.signInTextView);
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        RadioButton studentRadioButton = (RadioButton) findViewById(R.id.studentRadioButton);
-        RadioButton professorRadioButton = (RadioButton) findViewById(R.id.professorRadioButton);
+        RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        RadioButton studentRadioButton = findViewById(R.id.studentRadioButton);
 
         studentRadioButton.setChecked(true);
         extraInfoEditText.setHint("Student number");
