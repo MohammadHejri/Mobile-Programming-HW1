@@ -1,14 +1,18 @@
 package edu.sharif.courseware.view;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -26,6 +30,36 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
     private CourseRecyclerAdapter adapter;
     private ArrayList<Course> mCourses;
 
+    private void popUpEditText() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Comments");
+
+        final EditText input = new EditText(this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                // do something here on OK
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +71,8 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         createClassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProfessorMainPage.this, ProfessorCreateClass.class));
+                popUpEditText();
+                //startActivity(new Intent(ProfessorMainPage.this, ProfessorCreateClass.class));
             }
         });
 
