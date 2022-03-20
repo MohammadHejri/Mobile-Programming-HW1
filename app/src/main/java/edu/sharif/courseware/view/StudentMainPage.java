@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,13 +22,11 @@ import edu.sharif.courseware.model.LoginRepository;
 
 public class StudentMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
-    Button joinClassBtn;
-    RecyclerView rvClasses;
-    CourseRecyclerAdapter adapter;
     private CourseController courseController;
-    private UserController userController;
+
+    private RecyclerView rvClasses;
+    private CourseRecyclerAdapter adapter;
     private ArrayList<Course> mCourses;
-    private String studentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,46 +37,29 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
 
         //Instancing Controllers.
         courseController = new CourseController(StudentMainPage.this);
-        userController = new UserController(StudentMainPage.this);
 
-        //Instancing Views.
-        joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
-        rvClasses = (RecyclerView) findViewById(R.id.studentMainList);
-
-        //Recycler View.
-        try {
-            mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this, LoginRepository.getInstance().getUsername());
-        }catch (Exception e) {
-            mCourses = new ArrayList<>();
-        }
-        initRecycler();
-
-        //Add functionality.
+        Button joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
         joinClassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(StudentMainPage.this, StudentJoinClass.class);
-                startActivity(intent);
+                startActivity(new Intent(StudentMainPage.this, StudentJoinClass.class));
             }
         });
-    }
 
-    private void initRecycler() {
+        mCourses = courseController.getStudentEnrolledCourses(LoginRepository.getInstance().getUsername());
+        rvClasses = (RecyclerView) findViewById(R.id.studentMainList);
+        rvClasses.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CourseRecyclerAdapter(mCourses,this);
         rvClasses.setAdapter(adapter);
-        rvClasses.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onResume() {
         super.onResume();
-        try {
-            mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this, LoginRepository.getInstance().getUsername());
-        }catch (Exception e) {
-            mCourses = new ArrayList<>();
-        }
-        initRecycler();
-        //TODO
+        mCourses = courseController.getStudentEnrolledCourses(LoginRepository.getInstance().getUsername());
+        adapter.changeDataSet(mCourses);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

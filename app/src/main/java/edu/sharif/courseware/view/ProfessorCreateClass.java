@@ -17,50 +17,36 @@ import android.widget.TextView;
 
 public class ProfessorCreateClass extends AppCompatActivity {
 
-    Button createClassBtn;
-    TextView classNameText;
-    //Error Dialog
+    /*//Error Dialog
     AlertDialog.Builder builderDialog;
-    AlertDialog alertDialog;
+    AlertDialog alertDialog;*/
 
     private CourseController courseController;
-    private UserController userController;
-    private String professorName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_professor_create_class);
 
-        //Probably needs to be deleted.
-        Intent intent = getIntent();
-        this.professorName = intent.getStringExtra("professorName");
-
-        //Controllers.
-        userController = new UserController(ProfessorCreateClass.this);
         courseController = new CourseController(ProfessorCreateClass.this);
 
-
-        setContentView(R.layout.activity_professor_create_class);
-        createClassBtn = (Button) findViewById(R.id.createClassBtn);
-        classNameText = (TextView) findViewById(R.id.classNameText);
-
+        Button createClassBtn = (Button) findViewById(R.id.createClassBtn);
+        TextView classNameText = (TextView) findViewById(R.id.classNameText);
         createClassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String className = classNameText.getText().toString();
-                if (className.isEmpty()) {
-                    String errorMessage = "please fill out all required fields.";
-                    showAlertDialog(R.layout.my_error_dialog, errorMessage);
-                } else {
-                    courseController.createCourse(className, LoginRepository.getInstance().getUsername());
-                    //TODO
+                String courseName = classNameText.getText().toString();
+                String error = courseController.getCourseNameError(courseName);
+                classNameText.setError(error);
+                if (error == null) {
+                    courseController.createCourse(courseName, LoginRepository.getInstance().getUsername());
                     finish();
                 }
             }
         });
     }
 
-    private void showAlertDialog(int myLayout, String errorMessage) {
+    /*private void showAlertDialog(int myLayout, String errorMessage) {
         builderDialog = new AlertDialog.Builder(this);
         View layoutView = getLayoutInflater().inflate(myLayout, null);
 
@@ -80,5 +66,5 @@ public class ProfessorCreateClass extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
-    }
+    }*/
 }

@@ -16,12 +16,16 @@ import edu.sharif.courseware.model.Course;
 
 public class CourseRecyclerAdapter extends RecyclerView.Adapter<CourseRecyclerAdapter.ViewHolder> {
 
-    private ArrayList<Course> mCourses = new ArrayList<>();
+    private ArrayList<Course> mCourses;
     private OnCourseListener mOnCourseListener;
 
     public CourseRecyclerAdapter(ArrayList<Course> Courses, OnCourseListener onCourseListener) {
         this.mCourses = Courses;
         this.mOnCourseListener = onCourseListener;
+    }
+
+    public void changeDataSet(ArrayList<Course> mCourses) {
+        this.mCourses = mCourses;
     }
 
     @NonNull
