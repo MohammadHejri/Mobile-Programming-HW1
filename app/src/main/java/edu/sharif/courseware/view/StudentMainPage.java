@@ -47,9 +47,7 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
         //Recycler View.
         try {
             mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this, LoginRepository.getInstance().getUsername());
-            Log.d("DEBUG",Integer.toString(mCourses.size()));
         }catch (Exception e) {
-            Log.d("DEBUG",e.getMessage());
             mCourses = new ArrayList<>();
         }
         initRecycler();
@@ -59,7 +57,6 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StudentMainPage.this, StudentJoinClass.class);
-                intent.putExtra("studentUsername", studentUsername);
                 startActivity(intent);
             }
         });
