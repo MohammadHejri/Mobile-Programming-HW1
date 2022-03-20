@@ -17,6 +17,7 @@ import edu.sharif.courseware.adapters.CourseRecyclerAdapter;
 import edu.sharif.courseware.controller.CourseController;
 import edu.sharif.courseware.controller.UserController;
 import edu.sharif.courseware.model.Course;
+import edu.sharif.courseware.model.LoginRepository;
 
 public class StudentMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
@@ -25,7 +26,7 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
     CourseRecyclerAdapter adapter;
     private CourseController courseController;
     private UserController userController;
-    private ArrayList<Course> mCourses = new ArrayList<>();
+    private ArrayList<Course> mCourses;
     private String studentUsername;
 
     @Override
@@ -34,7 +35,6 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
         setContentView(R.layout.activity_student_main_page);
 
         Intent intent = getIntent();
-        this.studentUsername = intent.getStringExtra("studentUsername");
 
         //Instancing Controllers.
         courseController = new CourseController(StudentMainPage.this);
@@ -46,7 +46,7 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
 
         //Recycler View.
         try {
-            mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this, studentUsername);
+            mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this, LoginRepository.getInstance().getUsername());
             Log.d("DEBUG",Integer.toString(mCourses.size()));
         }catch (Exception e) {
             Log.d("DEBUG",e.getMessage());
@@ -75,7 +75,7 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
     protected void onResume() {
         super.onResume();
         try {
-            mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this, studentUsername);
+            mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this, LoginRepository.getInstance().getUsername());
         }catch (Exception e) {
             mCourses = new ArrayList<>();
         }

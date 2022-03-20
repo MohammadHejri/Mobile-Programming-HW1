@@ -61,7 +61,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfessorMainPage.this, ProfessorCreateClass.class);
-                intent.putExtra("professorName",professorName);
+                intent.putExtra("professorName", professorName);
                 startActivity(intent);
             }
         });
