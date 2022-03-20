@@ -48,7 +48,7 @@ public class StudentHomeworkPage extends AppCompatActivity {
             previousAnswer.setText("You have not answered this question.");
         }
 
-        submitButton.setEnabled(!homeworkGrade.equals("Grade : N/A"));
+        submitButton.setEnabled(submission == null || submission.getMark() != -1);
         homeworkName.setText(homework.getName());
         homeworkQuestion.setText(homework.getQuestion());
         submitButton.setOnClickListener(new View.OnClickListener() {
