@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
                 User user = loginController.getLoginResult(username, password);
                 if (user == null) {
-                    String errorMessage = "User not found or wrong password";
+                    String errorMessage = "User not found or wrong password!";
                     Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
                 } else {
                     LoginRepository.getInstance().logIn(username);

@@ -1,5 +1,7 @@
 package edu.sharif.courseware.model;
 
+import android.content.Context;
+
 import java.util.Objects;
 
 public abstract class User {
@@ -14,6 +16,18 @@ public abstract class User {
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
+    }
+
+    public static User getUser(Context context, String username) {
+        try {
+            return Student.getStudent(context, username);
+        } catch (Exception exception) {
+            try {
+                return Professor.getProfessor(context, username);
+            } catch (Exception ignored) {
+            }
+        }
+        return null;
     }
 
     public String getUsername() {

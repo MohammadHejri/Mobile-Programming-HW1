@@ -4,8 +4,6 @@ import android.content.Context;
 
 import java.util.regex.Pattern;
 
-import edu.sharif.courseware.model.Professor;
-import edu.sharif.courseware.model.Student;
 import edu.sharif.courseware.model.User;
 
 public class LoginController {
@@ -35,23 +33,7 @@ public class LoginController {
     }
 
     public User getLoginResult(String username, String password) {
-        try {
-            Student student = Student.getStudent(context, username);
-            if (student.getPassword().equals(password))
-                return student;
-            else
-                return null;
-        } catch (Exception studentException) {
-            try {
-                Professor professor = Professor.getProfessor(context, username);
-                if (professor.getPassword().equals(password))
-                    return professor;
-                else
-                    return null;
-            } catch (Exception professorException) {
-                return null;
-            }
-        }
+        return User.getUser(context, username);
     }
 
 }
