@@ -10,28 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Courseware">
         <activity
-            android:name=".StudentJoinClass"
-            android:exported="false"
-            android:parentActivityName=".StudentMainPage" />
-<!--        <activity-->
-<!--            android:name=".StudentMainPage"-->
-<!--            android:exported="false" />-->
-
-        <activity android:name=".StudentMainPage"
-            android:label="@string/app_name"
-            android:exported="true">
-        </activity>
-
+            android:name=".view.RegisterActivity"
+            android:exported="false" />
         <activity
-            android:name=".ProfessorCreateClass"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan|adjustResize"
-            android:parentActivityName=".ProfessorMainPage" />
-        <activity
-            android:name=".ProfessorMainPage"
+            android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

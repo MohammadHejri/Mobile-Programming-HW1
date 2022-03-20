@@ -1,10 +1,9 @@
-package controller;
+package edu.sharif.courseware.controller;
 
 import android.content.Context;
 
-import model.Course;
-import model.Professor;
-import model.Student;
+import edu.sharif.courseware.model.Professor;
+import edu.sharif.courseware.model.Student;
 
 public class UserController {
 

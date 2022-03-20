@@ -1,4 +1,4 @@
-package model;
+package edu.sharif.courseware.model;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

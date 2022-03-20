@@ -1,16 +1,15 @@
-package edu.sharif.courseware;
+package edu.sharif.courseware.view;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import controller.CourseController;
-import controller.UserController;
-import model.Course;
-import model.Professor;
+
+import edu.sharif.courseware.R;
+import edu.sharif.courseware.controller.CourseController;
+import edu.sharif.courseware.controller.UserController;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;

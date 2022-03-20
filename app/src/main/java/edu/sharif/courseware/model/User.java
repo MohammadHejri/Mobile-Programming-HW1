@@ -1,4 +1,4 @@
-package model;
+package edu.sharif.courseware.model;
 
 import java.util.Objects;
 

@@ -1,9 +1,5 @@
-package adapters;
+package edu.sharif.courseware.adapters;
 
-import static android.content.ContentValues.TAG;
-
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import edu.sharif.courseware.R;
-import model.Course;
+import edu.sharif.courseware.model.Course;
 
 public class CourseRecyclerAdapter extends RecyclerView.Adapter<CourseRecyclerAdapter.ViewHolder> {
 

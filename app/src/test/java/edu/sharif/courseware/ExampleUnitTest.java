@@ -2,10 +2,6 @@ package edu.sharif.courseware;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-import model.Student;
-
 /**
  * Example local unit test, which will execute on the development machine (host).
  *

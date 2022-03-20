@@ -1,4 +1,4 @@
-package edu.sharif.courseware;
+package edu.sharif.courseware.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,66 +8,70 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import adapters.CourseRecyclerAdapter;
-import controller.CourseController;
-import controller.UserController;
-import model.Course;
-import model.Professor;
+import edu.sharif.courseware.R;
+import edu.sharif.courseware.adapters.CourseRecyclerAdapter;
+import edu.sharif.courseware.controller.CourseController;
+import edu.sharif.courseware.controller.UserController;
+import edu.sharif.courseware.model.Course;
 
-public class StudentMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
+public class StudentJoinClass extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
     Button joinClassBtn;
+    TextView classIdJoin;
     RecyclerView rvClasses;
     CourseRecyclerAdapter adapter;
+    private ArrayList<Course> mCourses = new ArrayList<>();
     private CourseController courseController;
     private UserController userController;
-    private ArrayList<Course> mCourses = new ArrayList<>();
     private String studentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_main_page);
+        setContentView(R.layout.activity_student_join_class);
 
         Intent intent = getIntent();
         this.studentUsername = intent.getStringExtra("studentUsername");
 
-        //Instancing Controllers.
-        courseController = new CourseController(StudentMainPage.this);
-        userController = new UserController(StudentMainPage.this);
+        //Instancing Controllers
+        courseController = new CourseController(StudentJoinClass.this);
+        userController = new UserController(StudentJoinClass.this);
+
 
         //Instancing Views.
         joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
+        classIdJoin = (TextView) findViewById(R.id.classIdJoin);
         rvClasses = (RecyclerView) findViewById(R.id.studentNewClassList);
 
+        //Testing
+
         //Recycler View.
-        mCourses = Course.getStudentEnrolledCourses(StudentMainPage.this,studentUsername);
+        mCourses = Course.getStudentNotEnrolledCourses(StudentJoinClass.this, studentUsername);
         adapter = new CourseRecyclerAdapter(mCourses,this);
         rvClasses.setAdapter(adapter);
         rvClasses.setLayoutManager(new LinearLayoutManager(this));
 
-        //Add functionality.
+        //Adding functionality.
         joinClassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(StudentMainPage.this, StudentJoinClass.class);
-                intent.putExtra("studentUsername", studentUsername);
-                startActivity(intent);
+                String classId = classIdJoin.getText().toString();
+                courseController.addStudentToCourse(studentUsername, Integer.parseInt(classId));
             }
         });
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        //TODO
-    }
-
-    @Override
     public void onCourseClick(int position) {
+        if(position == -1)
+            return;
+        courseController.addStudentToCourse(studentUsername, mCourses.get(position).getId());
+        mCourses.remove(position);
+        adapter.notifyItemRemoved(position);
         //TODO
     }
 }

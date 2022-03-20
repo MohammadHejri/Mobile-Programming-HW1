@@ -1,4 +1,4 @@
-package edu.sharif.courseware;
+package edu.sharif.courseware.view;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,17 +7,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
 
-import adapters.CourseRecyclerAdapter;
-import controller.CourseController;
-import controller.UserController;
-import model.Course;
-import model.Professor;
+import edu.sharif.courseware.R;
+import edu.sharif.courseware.adapters.CourseRecyclerAdapter;
+import edu.sharif.courseware.controller.CourseController;
+import edu.sharif.courseware.controller.UserController;
+import edu.sharif.courseware.model.Course;
 
 public class ProfessorMainPage extends AppCompatActivity implements CourseRecyclerAdapter.OnCourseListener {
 
