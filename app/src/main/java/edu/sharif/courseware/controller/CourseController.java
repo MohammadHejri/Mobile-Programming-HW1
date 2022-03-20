@@ -9,6 +9,7 @@ import edu.sharif.courseware.model.Course;
 import edu.sharif.courseware.model.Homework;
 import edu.sharif.courseware.model.LoginRepository;
 import edu.sharif.courseware.model.Professor;
+import edu.sharif.courseware.view.StudentMainPage;
 
 public class CourseController {
 
@@ -22,12 +23,20 @@ public class CourseController {
         return Course.getCourse(context, id);
     }
 
-    public List<Course> getListedCourses(String studentUsername) {
-        return Course.getStudentNotEnrolledCourses(context, studentUsername);
+    public ArrayList<Course> getStudentEnrolledCourses(String studentUsername) {
+        try {
+            return Course.getStudentEnrolledCourses(context, studentUsername);
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
     }
 
-    public List<Course> getUnlistedCourses(String studentUsername) {
-        return Course.getStudentNotEnrolledCourses(context, studentUsername);
+    public ArrayList<Course> getStudentNotEnrolledCourses(String studentUsername) {
+        try {
+            return Course.getStudentNotEnrolledCourses(context, studentUsername);
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
     }
 
     public List<Course> getCreatedCourses(String username) {

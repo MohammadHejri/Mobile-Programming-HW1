@@ -1,6 +1,5 @@
 package edu.sharif.courseware.view;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,12 +55,6 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         mCourses = courseController.getCoursesByProfessorID(LoginRepository.getInstance().getUsername());
         adapter.changeDataSet(mCourses);
         adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // TODO
     }
 
     @Override
