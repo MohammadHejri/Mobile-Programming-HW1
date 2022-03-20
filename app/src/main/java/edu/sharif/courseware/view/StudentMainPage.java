@@ -33,6 +33,9 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_main_page);
 
+        Intent intent = getIntent();
+
+        //Instancing Controllers.
         courseController = new CourseController(StudentMainPage.this);
 
         Button joinClassBtn = (Button) findViewById(R.id.joinClassBtn);
