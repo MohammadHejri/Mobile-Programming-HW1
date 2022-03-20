@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -71,7 +72,9 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
             public void onClick(View view) {
                 String classId = classIdJoin.getText().toString();
                 if (classId.isEmpty()) {
-                    showAlertDialog(R.layout.my_error_dialog, "Class Id is empty.");
+                    CharSequence text = "Please enter the name of the class.";
+                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                    toast.show();
                 } else {
                     courseController.addStudentToCourse(studentUsername, Integer.parseInt(classId));
                     finish();
@@ -87,28 +90,5 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
         courseController.addStudentToCourse(studentUsername, mCourses.get(position).getId());
         mCourses.remove(position);
         adapter.notifyItemRemoved(position);
-        //TODO
-    }
-
-    private void showAlertDialog(int myLayout, String errorMessage) {
-        builderDialog = new AlertDialog.Builder(this);
-        View layoutView = getLayoutInflater().inflate(myLayout, null);
-
-        AppCompatButton dialogButton = layoutView.findViewById(R.id.bottomOk);
-        TextView textView = layoutView.findViewById(R.id.popUpErrorMessage);
-
-
-        textView.setText(errorMessage);
-        builderDialog.setView(layoutView);
-        alertDialog = builderDialog.create();
-        alertDialog.show();
-
-        //Close the dialog
-        dialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-            }
-        });
     }
 }
