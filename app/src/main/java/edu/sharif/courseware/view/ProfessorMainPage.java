@@ -30,9 +30,9 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
     private CourseRecyclerAdapter adapter;
     private ArrayList<Course> mCourses;
 
-    private void popUpEditText() {
+    private void createClassViaPopUp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Name of the class.");
+        builder.setTitle("Enter course name");
 
         final EditText input = new EditText(this);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -41,7 +41,6 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         input.setLayoutParams(lp);
         builder.setView(input);
 
-        // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -75,8 +74,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         createClassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                popUpEditText();
-                //startActivity(new Intent(ProfessorMainPage.this, ProfessorCreateClass.class));
+                createClassViaPopUp();
             }
         });
 

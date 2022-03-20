@@ -35,10 +35,6 @@
             android:exported="false"
             android:parentActivityName=".view.LoginActivity"/>
 
-        <activity android:name=".view.ProfessorCreateClass"
-            android:exported="false"
-            android:parentActivityName=".view.ProfessorMainPage"/>
-
     </application>
 
 </manifest>
