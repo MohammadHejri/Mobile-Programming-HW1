@@ -65,7 +65,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
                 input.setError(error);
                 if (error == null) {
                     String message = "Successfully created " + courseName + " course";
-                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                     Course newCourse = courseController.createCourse(courseName, LoginRepository.getInstance().getUsername());
                     mCourses.add(newCourse);
                     adapter.notifyItemInserted(mCourses.size() - 1);

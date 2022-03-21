@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -35,48 +36,65 @@ public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRe
     private HomeworkRecyclerAdapter adapter;
     private ArrayList<Homework> mHomeworks;
 
+    @SuppressLint("RestrictedApi")
     private void createHomeworkViaPopUp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter homework description");
+        builder.setTitle("Create Homework");
+        builder.setMessage("Enter your homework name and question.");
+        builder.setIcon(R.drawable.ic_homework);
 
         final EditText nameInput = new EditText(this);
-        final EditText questionInput = new EditText(this);
         nameInput.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT));
         nameInput.setHint("Name");
+        nameInput.setSingleLine();
+
+        final EditText questionInput = new EditText(this);
         questionInput.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 getWindowManager().getDefaultDisplay().getHeight() / 4));
         questionInput.setHint("Question");
-        questionInput.setGravity(Gravity.BOTTOM);
+        questionInput.setGravity(Gravity.TOP);
         LinearLayout layout = new LinearLayout(getApplicationContext());
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(nameInput);
         layout.addView(questionInput);
-        builder.setView(layout);
-
+        builder.setView(layout, 50, 0, 50, 0);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String homeworkName = nameInput.getText().toString();
-                String homeworkQuestion = questionInput.getText().toString();
-                String error = homeworkController.getHomeworkError(homeworkName);
-                nameInput.setError(error);
-                if (error == null) {
-                    Homework newHomework = homeworkController.createHomework(CourseRepository.getInstance().getCourseId(), homeworkName, homeworkQuestion);
-                    mHomeworks.add(newHomework);
-                    adapter.notifyItemInserted(mHomeworks.size() - 1);
-                    dialog.dismiss();
-                }
-            }});
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
             }
         });
-        builder.show();
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                String homeworkName = nameInput.getText().toString();
+                String homeworkQuestion = questionInput.getText().toString();
+                String errorName = homeworkController.getHomeworkError(homeworkName);
+                String errorQuestion = homeworkController.getHomeworkError(homeworkQuestion);
+                nameInput.setError(errorName);
+                questionInput.setError(errorQuestion);
+                if (errorName == null && errorQuestion == null) {
+                    Homework newHomework = homeworkController.createHomework(CourseRepository.getInstance().getCourseId(), homeworkName, homeworkQuestion);
+                    if (newHomework != null) {
+                        String message = "Successfully created " + homeworkName + " homework";
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                        mHomeworks.add(newHomework);
+                        adapter.notifyItemInserted(mHomeworks.size() - 1);
+                        dialog.dismiss();
+                    } else {
+                        nameInput.setError("Homework name already taken");
+                    }
+                }
+            }
+        });
     }
 
     @Override

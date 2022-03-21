@@ -33,7 +33,12 @@ public class HomeworkController {
     }
 
     public Homework createHomework(String course_id, String name, String question) {
-        return Homework.createHomework(context, Integer.parseInt(course_id), name, question);
+        try {
+            Homework.getHomework(context, Integer.parseInt(course_id), name);
+            return null;
+        } catch (Exception e) {
+            return Homework.createHomework(context, Integer.parseInt(course_id), name, question);
+        }
     }
 
     public Homework getHomeworkQuestion(String name, int courseId) {

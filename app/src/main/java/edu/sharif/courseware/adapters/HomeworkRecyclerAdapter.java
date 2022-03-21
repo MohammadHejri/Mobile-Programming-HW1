@@ -39,7 +39,7 @@ public class HomeworkRecyclerAdapter extends RecyclerView.Adapter<HomeworkRecycl
     @Override
     public void onBindViewHolder(@NonNull HomeworkRecyclerAdapter.ViewHolder holder, int position) {
         holder.homeworkNameList.setText(mHomeworks.get(position).getName());
-        holder.homeworkIdList.setText("Nothing");
+        holder.homeworkIdList.setText("");
     }
 
     @Override
