@@ -115,8 +115,7 @@ public class StudentCoursePage extends AppCompatActivity implements HomeworkRecy
         logoutIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LogoutController.getInstance().logout(getApplicationContext());
-                finish();
+                LogoutController.getInstance().confirmationPopUp(StudentCoursePage.this);
             }
         });
     }

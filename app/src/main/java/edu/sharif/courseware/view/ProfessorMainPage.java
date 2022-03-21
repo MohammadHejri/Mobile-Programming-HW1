@@ -147,8 +147,7 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         logoutIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LogoutController.getInstance().logout(getApplicationContext());
-                finish();
+                LogoutController.getInstance().confirmationPopUp(ProfessorMainPage.this);
             }
         });
 
@@ -170,6 +169,11 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
         String message = "Successfully entered " + course.getName() + " course page";
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(ProfessorMainPage.this, ProfessorCoursePage.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+        LogoutController.getInstance().confirmationPopUp(this);
     }
 
 }

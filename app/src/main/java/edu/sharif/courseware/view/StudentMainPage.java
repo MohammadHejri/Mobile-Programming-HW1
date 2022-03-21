@@ -104,8 +104,7 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
         logoutIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LogoutController.getInstance().logout(getApplicationContext());
-                finish();
+                LogoutController.getInstance().confirmationPopUp(StudentMainPage.this);
             }
         });
     }
@@ -127,4 +126,10 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(StudentMainPage.this, StudentCoursePage.class));
     }
+
+    @Override
+    public void onBackPressed() {
+        LogoutController.getInstance().confirmationPopUp(this);
+    }
+
 }
