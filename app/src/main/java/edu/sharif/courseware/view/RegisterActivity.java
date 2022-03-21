@@ -28,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean isUsernameValid = false;
     private boolean isPasswordValid = false;
     private boolean isConfirmPasswordValid = false;
+    private boolean isUniNumberValid = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +155,32 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+
+        extraInfoEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String extraInfo = extraInfoEditText.getText().toString();
+                String error;
+                if (radioGroup.getCheckedRadioButtonId() == R.id.studentRadioButton)
+                    error = registerController.getStudentNumberError(extraInfo);
+                else
+                    error = registerController.getUniversityNameError(extraInfo);
+                extraInfoEditText.setError(error);
+                isUniNumberValid = (error == null);
+                signUpButton.setEnabled((signUpButtonEnabled()));
+            }
+        });
+
         passwordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -210,6 +237,7 @@ public class RegisterActivity extends AppCompatActivity {
                 && isLastNameValid
                 && isUsernameValid
                 && isPasswordValid
-                && isConfirmPasswordValid;
+                && isConfirmPasswordValid
+                && isUniNumberValid;
     }
 }
