@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                     extraInfoEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 } else {
                     extraInfoEditText.setHint("University name");
-                    extraInfoEditText.setInputType(InputType.TYPE_TEXT_VARIATION_NORMAL);
+                    extraInfoEditText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                 }
             }
         });
