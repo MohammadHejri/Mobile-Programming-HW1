@@ -23,6 +23,14 @@ public class HomeworkController {
         return null;
     }
 
+    public Homework getHomework(String courseID, String homeworkName) {
+        ArrayList<Homework> homeworks =  getHomeworksByCourse(Integer.parseInt(courseID));
+        for (Homework homework : homeworks)
+            if (homework.getName().equals(homeworkName))
+                return homework;
+        return null;
+    }
+
     public ArrayList<Homework> getHomeworksByCourse(int courseId) {
         Course course = Course.getCourse(context, courseId);
         try {

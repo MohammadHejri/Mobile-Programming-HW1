@@ -35,7 +35,7 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
     @SuppressLint("RestrictedApi")
     private void enterCourseManually() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Course");
+        builder.setTitle("Enter Course Page");
         builder.setMessage("Enter your course ID");
         builder.setIcon(R.drawable.ic_enter);
 
@@ -66,7 +66,7 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
                 if (error == null) {
                     Course course = courseController.getEnrolledCourse(courseID, LoginRepository.getInstance().getUsername());
                     if (course != null) {
-                        String message = "Successfully entered " + course.getName() + " course";
+                        String message = "Successfully entered " + course.getName() + " course page";
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                         CourseRepository.getInstance().setCourseId(String.valueOf(course.getId()));
                         startActivity(new Intent(StudentMainPage.this, StudentCoursePage.class));
@@ -112,7 +112,7 @@ public class StudentMainPage extends AppCompatActivity implements CourseRecycler
     public void onCourseClick(int position) {
         Course course = mCourses.get(position);
         CourseRepository.getInstance().setCourseId(String.valueOf(course.getId()));
-        String message = "Successfully entered " + course.getName() + " course";
+        String message = "Successfully entered " + course.getName() + " course page";
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(StudentMainPage.this, StudentCoursePage.class));
     }

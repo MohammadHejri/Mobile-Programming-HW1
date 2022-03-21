@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -26,6 +27,7 @@ import edu.sharif.courseware.controller.HomeworkController;
 import edu.sharif.courseware.model.Course;
 import edu.sharif.courseware.model.CourseRepository;
 import edu.sharif.courseware.model.Homework;
+import edu.sharif.courseware.model.HomeworkRepository;
 import edu.sharif.courseware.model.LoginRepository;
 
 public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRecyclerAdapter.OnHomeworkListener {
@@ -97,6 +99,53 @@ public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRe
         });
     }
 
+    @SuppressLint("RestrictedApi")
+    private void enterHomeworkManually() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter Homework Page");
+        builder.setMessage("Enter your homework name");
+        builder.setIcon(R.drawable.ic_enter);
+
+        final EditText input = new EditText(this);
+        input.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+        input.setSingleLine();
+        input.setHint("Homework Name");
+        builder.setView(input, 50, 0, 50, 0);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                String homeworkName = input.getText().toString();
+                String error = homeworkController.getHomeworkError(homeworkName);
+                input.setError(error);
+                if (error == null) {
+                    Homework homework = homeworkController.getHomework(CourseRepository.getInstance().getCourseId(), homeworkName);
+                    if (homework != null) {
+                        String message = "Successfully entered " + homework.getName() + " homework";
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                        HomeworkRepository.getInstance().setHomeworkName(homeworkName);
+                        startActivity(new Intent(ProfessorCoursePage.this, ProfessorCoursePage.class));
+                        dialog.dismiss();
+                    } else {
+                        input.setError("Homework not found");
+                    }
+                }
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +160,9 @@ public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRe
                 createHomeworkViaPopUp();
             }
         });
+
+        Button manualEnterButton = (Button) findViewById(R.id.manualEnterButton);
+        manualEnterButton.setOnClickListener(view -> enterHomeworkManually());
 
         mHomeworks = homeworkController.getHomeworksByCourse(Integer.parseInt(CourseRepository.getInstance().getCourseId()));
         rvClasses = findViewById(R.id.courseHomeworks);
