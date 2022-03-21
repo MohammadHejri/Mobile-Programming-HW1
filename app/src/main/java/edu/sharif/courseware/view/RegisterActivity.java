@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.reflect.Type;
 
 import edu.sharif.courseware.R;
 import edu.sharif.courseware.controller.RegisterController;
@@ -49,14 +52,18 @@ public class RegisterActivity extends AppCompatActivity {
 
         studentRadioButton.setChecked(true);
         extraInfoEditText.setHint("Student number");
+        extraInfoEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if (i == R.id.studentRadioButton) {
                     extraInfoEditText.setHint("Student number");
-                }else
+                    extraInfoEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                } else {
                     extraInfoEditText.setHint("University name");
+                    extraInfoEditText.setInputType(InputType.TYPE_TEXT_VARIATION_NORMAL);
+                }
             }
         });
 
