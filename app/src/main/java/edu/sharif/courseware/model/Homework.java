@@ -1,5 +1,6 @@
 package edu.sharif.courseware.model;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -74,7 +75,7 @@ public class Homework {
         String[] selectionArgs = { String.valueOf(course_id), name };
         Cursor cursor = db.query(DBHelper.HOMEWORK_TABLE_NAME, columns, selection, selectionArgs,null,null,null);
         cursor.moveToNext();
-        String question = cursor.getString(cursor.getColumnIndex(DBHelper.HOMEWORK_QUESTION));
+        @SuppressLint("Range") String question = cursor.getString(cursor.getColumnIndex(DBHelper.HOMEWORK_QUESTION));
         Course course = Course.getCourse(context, course_id);
         cursor.close();
         return new Homework(name, question, course);
@@ -90,8 +91,8 @@ public class Homework {
         ArrayList<Homework> homeworks = new ArrayList<>();
         Course course = Course.getCourse(context, course_id);
         while (cursor.moveToNext()) {
-            String name = cursor.getString(cursor.getColumnIndex(DBHelper.HOMEWORK_NAME));
-            String question = cursor.getString(cursor.getColumnIndex(DBHelper.HOMEWORK_QUESTION));
+            @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DBHelper.HOMEWORK_NAME));
+            @SuppressLint("Range") String question = cursor.getString(cursor.getColumnIndex(DBHelper.HOMEWORK_QUESTION));
             homeworks.add(new Homework(name, question, course));
         }
         cursor.close();
@@ -106,6 +107,7 @@ public class Homework {
         String selection = DBHelper.HOMEWORK_COURSE_ID + " = ? AND " + DBHelper.HOMEWORK_NAME + " = ? ";
         String[] selectionArgs = { String.valueOf(course_id), old_name };
         db.update(DBHelper.HOMEWORK_TABLE_NAME, contentValues, selection, selectionArgs);
+        Submission.updateSubmissionHomeworkName(context, course_id, old_name, newName);
     }
 
 }

@@ -134,4 +134,14 @@ public class Submission {
         db.update(DBHelper.SUBMISSION_TABLE_NAME, contentValues, selection, selectionArgs);
     }
 
+    public static void updateSubmissionHomeworkName(Context context, int course_id, String oldName, String newName) {
+        submissionDBHelper = new DBHelper(context);
+        SQLiteDatabase db = submissionDBHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelper.SUBMISSION_HW_NAME, newName);
+        String selection = DBHelper.HOMEWORK_COURSE_ID + " = ? AND " + DBHelper.SUBMISSION_HW_NAME + " = ? ";
+        String[] selectionArgs = { String.valueOf(course_id), oldName};
+        db.update(DBHelper.SUBMISSION_TABLE_NAME, contentValues, selection, selectionArgs);
+    }
+
 }

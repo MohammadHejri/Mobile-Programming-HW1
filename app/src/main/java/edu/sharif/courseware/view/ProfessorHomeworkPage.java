@@ -41,6 +41,55 @@ public class ProfessorHomeworkPage extends AppCompatActivity implements Submissi
     private RecyclerView rvClasses;
     private SubmissionRecyclerAdapter adapter;
     private ArrayList<Submission> mSubmissions;
+    private TextView homeworkNameTextView;
+
+    @SuppressLint("RestrictedApi")
+    private void changeHomeworkNameViaPopUp() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Change Homework Name");
+        builder.setMessage("Enter a new name for your homework");
+        builder.setIcon(R.drawable.ic_homework);
+
+        final EditText nameInput = new EditText(this);
+        nameInput.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+        nameInput.setHint("Name");
+        nameInput.setSingleLine();
+        builder.setView(nameInput, 50, 0, 50, 0);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Course course = CourseRepository.getInstance().getCourse(getApplicationContext());
+                Homework homework = Homework.getHomework(getApplicationContext(),course.getId(),
+                        HomeworkRepository.getInstance().getHomeworkName());
+                String homeworkName = nameInput.getText().toString();
+                HomeworkController homeworkController = new HomeworkController(getApplicationContext());
+                String errorName = homeworkController.getHomeworkError(homeworkName);
+                nameInput.setError(errorName);
+                try {
+                    homeworkController.updateHomeworkName(course.getId(), homework.getName(), homeworkName);
+                    homeworkNameTextView.setText(homeworkName);
+                    String message = "Successfully changed homework name to " + homeworkName;
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                } catch (Exception e) {
+                    nameInput.setError("Homework name already taken");
+                }
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +106,11 @@ public class ProfessorHomeworkPage extends AppCompatActivity implements Submissi
         editNameImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO
+                changeHomeworkNameViaPopUp();
             }
         });
 
-        TextView homeworkNameTextView = findViewById(R.id.homeworkName);
+        homeworkNameTextView = findViewById(R.id.homeworkName);
         homeworkNameTextView.setText(homework.getName());
         TextView homeworkQuestionTextView = findViewById(R.id.homeworkQuestion);
         homeworkQuestionTextView.setText(homework.getQuestion());
@@ -117,7 +166,7 @@ public class ProfessorHomeworkPage extends AppCompatActivity implements Submissi
         markInput.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT));
-        markInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+        markInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         markInput.setHint("Mark");
         markInput.setSingleLine();
 

@@ -45,7 +45,7 @@ public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRe
     private void createHomeworkViaPopUp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Create Homework");
-        builder.setMessage("Enter your homework name and question.");
+        builder.setMessage("Enter your homework name and question");
         builder.setIcon(R.drawable.ic_homework);
 
         final EditText nameInput = new EditText(this);

@@ -48,6 +48,10 @@ public class HomeworkController {
         }
     }
 
+    public void updateHomeworkName(int course_id, String old_name, String newName) {
+        Homework.updateHomeworkName(context, course_id, old_name, newName);
+    }
+
     public Homework getHomeworkQuestion(String name, int courseId) {
         return Homework.getHomework(context, courseId, name);
     }
