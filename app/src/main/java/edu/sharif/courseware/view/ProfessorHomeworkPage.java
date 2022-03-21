@@ -125,8 +125,7 @@ public class ProfessorHomeworkPage extends AppCompatActivity implements Submissi
         logoutIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LogoutController.getInstance().logout(getApplicationContext());
-                finish();
+                LogoutController.getInstance().confirmationPopUp(ProfessorHomeworkPage.this);
             }
         });
     }

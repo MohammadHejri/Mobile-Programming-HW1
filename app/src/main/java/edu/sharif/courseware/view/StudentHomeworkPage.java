@@ -57,12 +57,15 @@ public class StudentHomeworkPage extends AppCompatActivity {
         logoutIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LogoutController.getInstance().logout(getApplicationContext());
-                finish();
+                LogoutController.getInstance().confirmationPopUp(StudentHomeworkPage.this);
             }
         });
 
-        submitButton.setEnabled(submission == null || submission.getMark() == -1);
+        if (submission != null && submission.getMark() != -1) {
+            submitButton.setEnabled(false);
+            homeworkAnswer.setEnabled(false);
+            homeworkAnswer.setHint("You can not change your answer anymore");
+        }
         homeworkName.setText(homework.getName());
         homeworkQuestion.setText(homework.getQuestion());
         submitButton.setOnClickListener(new View.OnClickListener() {

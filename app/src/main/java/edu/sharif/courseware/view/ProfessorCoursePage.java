@@ -185,8 +185,7 @@ public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRe
         logoutIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LogoutController.getInstance().logout(getApplicationContext());
-                finish();
+                LogoutController.getInstance().confirmationPopUp(ProfessorCoursePage.this);
             }
         });
     }

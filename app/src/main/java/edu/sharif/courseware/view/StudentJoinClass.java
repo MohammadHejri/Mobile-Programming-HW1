@@ -82,8 +82,7 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
         logoutIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LogoutController.getInstance().logout(getApplicationContext());
-                finish();
+                LogoutController.getInstance().confirmationPopUp(StudentJoinClass.this);
             }
         });
     }
