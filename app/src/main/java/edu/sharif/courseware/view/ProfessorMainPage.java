@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -30,30 +32,47 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
     private CourseRecyclerAdapter adapter;
     private ArrayList<Course> mCourses;
 
+    @SuppressLint("RestrictedApi")
     private void createClassViaPopUp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter course name");
+        builder.setTitle("Create Course");
+        builder.setMessage("Enter your course name and then press OK");
+        builder.setIcon(R.drawable.ic_create);
 
         final EditText input = new EditText(this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+        input.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        input.setLayoutParams(lp);
-        builder.setView(input);
-
-        builder.setPositiveButton("OK", (dialog, which) -> {
-            String courseName = input.getText().toString();
-            String error = courseController.getCourseNameError(courseName);
-            input.setError(error);
-            if (error == null) {
-                Course newCourse = courseController.createCourse(courseName, LoginRepository.getInstance().getUsername());
-                mCourses.add(newCourse);
-                adapter.notifyItemInserted(mCourses.size() - 1);
-                dialog.dismiss();
-        }
-    });
+                LinearLayout.LayoutParams.MATCH_PARENT));
+        input.setSingleLine();
+        input.setHint("Course name");
+        builder.setView(input, 50, 0, 50, 0);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-        builder.show();
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                String courseName = input.getText().toString();
+                String error = courseController.getCourseNameError(courseName);
+                input.setError(error);
+                if (error == null) {
+                    String message = "Successfully created " + courseName + " course";
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    Course newCourse = courseController.createCourse(courseName, LoginRepository.getInstance().getUsername());
+                    mCourses.add(newCourse);
+                    adapter.notifyItemInserted(mCourses.size() - 1);
+                    dialog.dismiss();
+                }
+            }
+        });
     }
 
     @Override
@@ -86,7 +105,6 @@ public class ProfessorMainPage extends AppCompatActivity implements CourseRecycl
     public void onCourseClick(int position) {
         Course course = mCourses.get(position);
         CourseRepository.getInstance().setCourseId(String.valueOf(course.getId()));
-        Toast.makeText(getApplicationContext(), course.getName(), Toast.LENGTH_LONG).show();
         startActivity(new Intent(ProfessorMainPage.this, ProfessorCoursePage.class));
     }
 

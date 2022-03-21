@@ -14,34 +14,41 @@
         android:id="@+id/createClassBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create a class"
+        android:layout_marginBottom="10dp"
+        android:text="CREATE A NEW COURSE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/professorMainList"
-        app:layout_constraintVertical_bias="0.502" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/studentJoinTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="List of Created classes"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="60dp"
+        android:text="Your Courses"
+        android:textColor="@color/red1"
+        android:textSize="32dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.088"
-        android:textSize="30dp"
-        android:textColor="@color/black"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/professorMainList"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/createClassBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/studentJoinTitle"
-        app:layout_constraintVertical_bias="0.255" />
+        app:layout_constraintTop_toBottomOf="@+id/studentJoinTitle" />
+
+    <ImageView
+        android:id="@+id/logoutIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_logout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
