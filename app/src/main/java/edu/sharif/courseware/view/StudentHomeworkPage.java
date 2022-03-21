@@ -8,10 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.sharif.courseware.R;
+import edu.sharif.courseware.controller.LogoutController;
 import edu.sharif.courseware.model.Course;
 import edu.sharif.courseware.model.CourseRepository;
 import edu.sharif.courseware.model.Homework;
@@ -50,6 +52,15 @@ public class StudentHomeworkPage extends AppCompatActivity {
             homeworkGrade.setText("-");
             previousAnswer.setText("-");
         }
+
+        ImageView logoutIcon = findViewById(R.id.logoutIcon);
+        logoutIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogoutController.getInstance().logout(getApplicationContext());
+                finish();
+            }
+        });
 
         submitButton.setEnabled(submission == null || submission.getMark() == -1);
         homeworkName.setText(homework.getName());

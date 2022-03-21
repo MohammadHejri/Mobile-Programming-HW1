@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import edu.sharif.courseware.adapters.CourseRecyclerAdapter;
 import edu.sharif.courseware.adapters.HomeworkRecyclerAdapter;
 import edu.sharif.courseware.controller.CourseController;
 import edu.sharif.courseware.controller.HomeworkController;
+import edu.sharif.courseware.controller.LogoutController;
 import edu.sharif.courseware.model.Course;
 import edu.sharif.courseware.model.CourseRepository;
 import edu.sharif.courseware.model.Homework;
@@ -178,6 +180,15 @@ public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRe
         rvClasses.setLayoutManager(new LinearLayoutManager(this));
         adapter = new HomeworkRecyclerAdapter(mHomeworks,this);
         rvClasses.setAdapter(adapter);
+
+        ImageView logoutIcon = findViewById(R.id.logoutIcon);
+        logoutIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogoutController.getInstance().logout(getApplicationContext());
+                finish();
+            }
+        });
     }
 
     @SuppressLint("NotifyDataSetChanged")
