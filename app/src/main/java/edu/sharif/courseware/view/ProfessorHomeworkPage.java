@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -155,12 +156,6 @@ public class ProfessorHomeworkPage extends AppCompatActivity implements Submissi
                 HomeworkRepository.getInstance().getHomeworkName());
         Submission submission = mSubmissions.get(position);
 
-        final TextView answerTextView = new TextView(this);
-        answerTextView.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT));
-        answerTextView.setText(submission.getAnswer());
-
         final EditText markInput = new EditText(this);
         markInput.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -171,7 +166,13 @@ public class ProfessorHomeworkPage extends AppCompatActivity implements Submissi
 
         LinearLayout layout = new LinearLayout(getApplicationContext());
         layout.setOrientation(LinearLayout.VERTICAL);
-        layout.addView(answerTextView);
+
+        LayoutInflater inflater = getLayoutInflater();
+        @SuppressLint("InflateParams") View dialogView = inflater.inflate(R.layout.submission_popup,null);
+        final TextView answerTextView = dialogView.findViewById(R.id.answerView);
+        answerTextView.setText(submission.getAnswer());
+
+        layout.addView(dialogView);
         layout.addView(markInput);
         builder.setView(layout, 50, 0, 50, 0);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

@@ -9,6 +9,7 @@
         <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.1785" />
         <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1785" />
         <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/drawable/layout_bg.xml" value="0.1785" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/drawable/layout_bg_light.xml" value="0.1785" />
         <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/activity_course_list.xml" value="0.6" />
         <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/activity_course_student_main_page.xml" value="0.1796875" />
         <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/activity_login.xml" value="0.22" />
@@ -24,6 +25,7 @@
         <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/activity_student_main_page.xml" value="0.22" />
         <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/layout_bg.xml" value="0.1597222222222222" />
         <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/my_error_dialog.xml" value="0.1796875" />
+        <entry key="..\:/Term6/Mobile_Programming/HW1/app/src/main/res/layout/submission_popup.xml" value="0.4466666666666667" />
       </map>
     </option>
   </component>

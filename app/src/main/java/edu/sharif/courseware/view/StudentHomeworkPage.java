@@ -39,6 +39,7 @@ public class StudentHomeworkPage extends AppCompatActivity {
         TextView homeworkGrade = findViewById(R.id.homeworkGrade);
         TextView previousAnswer = findViewById(R.id.previousAnswer);
         EditText homeworkAnswer = findViewById(R.id.homeworkAnswer);
+        homeworkAnswer.setSingleLine();
         Button submitButton = findViewById(R.id.submitButton);
 
         try {
