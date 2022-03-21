@@ -58,7 +58,7 @@ public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRe
         final EditText questionInput = new EditText(this);
         questionInput.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                getWindowManager().getDefaultDisplay().getHeight() / 4));
+                LinearLayout.LayoutParams.MATCH_PARENT));
         questionInput.setHint("Question");
         questionInput.setGravity(Gravity.TOP);
         LinearLayout layout = new LinearLayout(getApplicationContext());
