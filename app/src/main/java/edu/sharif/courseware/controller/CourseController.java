@@ -38,6 +38,22 @@ public class CourseController {
         }
     }
 
+    public Course getEnrolledCourse(String courseID, String studentName) {
+        ArrayList<Course> courses =  getStudentEnrolledCourses(studentName);
+        for (Course course : courses)
+            if (course.getId() == Integer.parseInt(courseID))
+                return course;
+        return null;
+    }
+
+    public Course getOwnedCourse(String courseID, String professorName) {
+        ArrayList<Course> courses =  getCoursesByProfessorID(professorName);
+        for (Course course : courses)
+            if (course.getId() == Integer.parseInt(courseID))
+                return course;
+        return null;
+    }
+
     public ArrayList<Course> getStudentNotEnrolledCourses(String studentUsername) {
         try {
             return Course.getStudentNotEnrolledCourses(context, studentUsername);
