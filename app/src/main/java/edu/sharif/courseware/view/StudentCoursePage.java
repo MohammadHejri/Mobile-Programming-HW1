@@ -13,16 +13,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import edu.sharif.courseware.R;
 import edu.sharif.courseware.adapters.HomeworkRecyclerAdapter;
+import edu.sharif.courseware.controller.CourseController;
 import edu.sharif.courseware.controller.HomeworkController;
+import edu.sharif.courseware.controller.UserController;
+import edu.sharif.courseware.model.Course;
 import edu.sharif.courseware.model.CourseRepository;
 import edu.sharif.courseware.model.Homework;
 import edu.sharif.courseware.model.HomeworkRepository;
+import edu.sharif.courseware.model.LoginRepository;
+import edu.sharif.courseware.model.User;
 
 public class StudentCoursePage extends AppCompatActivity implements HomeworkRecyclerAdapter.OnHomeworkListener {
 
@@ -79,6 +85,7 @@ public class StudentCoursePage extends AppCompatActivity implements HomeworkRecy
         });
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +95,13 @@ public class StudentCoursePage extends AppCompatActivity implements HomeworkRecy
 
         Button manualEnterButton = (Button) findViewById(R.id.manualEnterButton);
         manualEnterButton.setOnClickListener(view -> enterHomeworkManually());
+
+        String username = LoginRepository.getInstance().getUsername();
+        String courseID = CourseRepository.getInstance().getCourseId();
+        Course course = new CourseController(this).getEnrolledCourse(courseID, username);
+        ((TextView) findViewById(R.id.studentJoinTitle)).setText(course.getName() + " Homeworks");
+        String professorName = course.getOwner().getFirstname() + " " + course.getOwner().getLastname();
+        ((TextView) findViewById(R.id.professorNameTextView)).setText("Instructed by " + professorName);
 
         mHomeworks = homeworkController.getHomeworksByCourse(Integer.parseInt(CourseRepository.getInstance().getCourseId()));
         rvClasses = findViewById(R.id.courseHomeworks);

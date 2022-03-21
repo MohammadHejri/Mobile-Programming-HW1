@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:text="Your Homeworks"
+        android:textAlignment="center"
         android:textColor="@color/red1"
         android:textSize="32dp"
         android:textStyle="bold"
@@ -32,7 +33,7 @@
         app:layout_constraintBottom_toTopOf="@+id/manualEnterButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/studentJoinTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/professorNameTextView" />
 
     <ImageView
         android:id="@+id/logoutIcon"
@@ -51,4 +52,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/professorNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:text="Instructed by professor name"
+        android:textAlignment="center"
+        android:textColor="@color/red1"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/studentJoinTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -146,6 +147,7 @@ public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRe
         });
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,6 +165,13 @@ public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRe
 
         Button manualEnterButton = (Button) findViewById(R.id.manualEnterButton);
         manualEnterButton.setOnClickListener(view -> enterHomeworkManually());
+
+        String username = LoginRepository.getInstance().getUsername();
+        String courseID = CourseRepository.getInstance().getCourseId();
+        Course course = new CourseController(this).getOwnedCourse(courseID, username);
+        ((TextView) findViewById(R.id.studentJoinTitle)).setText(course.getName() + " Homeworks");
+        String professorName = course.getOwner().getFirstname() + " " + course.getOwner().getLastname();
+        ((TextView) findViewById(R.id.professorNameTextView)).setText("Instructed by " + professorName);
 
         mHomeworks = homeworkController.getHomeworksByCourse(Integer.parseInt(CourseRepository.getInstance().getCourseId()));
         rvClasses = findViewById(R.id.courseHomeworks);
