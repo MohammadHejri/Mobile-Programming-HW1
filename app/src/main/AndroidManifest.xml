@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Courseware">
         <activity
+            android:name=".view.ProfessorHomeworkPage"
+            android:exported="false" />
+        <activity
             android:name=".view.StudentHomeworkPage"
             android:exported="false" />
         <activity

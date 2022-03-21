@@ -99,7 +99,7 @@ public class StudentCoursePage extends AppCompatActivity implements HomeworkRecy
         String username = LoginRepository.getInstance().getUsername();
         String courseID = CourseRepository.getInstance().getCourseId();
         Course course = new CourseController(this).getEnrolledCourse(courseID, username);
-        ((TextView) findViewById(R.id.studentJoinTitle)).setText(course.getName() + " Homeworks");
+        ((TextView) findViewById(R.id.studentJoinTitle)).setText(course.getName());
         String professorName = course.getOwner().getFirstname() + " " + course.getOwner().getLastname();
         ((TextView) findViewById(R.id.professorNameTextView)).setText("Instructed by " + professorName);
 

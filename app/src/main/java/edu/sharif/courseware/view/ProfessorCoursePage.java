@@ -137,7 +137,7 @@ public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRe
                         String message = "Successfully entered " + homework.getName() + " homework";
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                         HomeworkRepository.getInstance().setHomeworkName(homeworkName);
-                        startActivity(new Intent(ProfessorCoursePage.this, ProfessorCoursePage.class));
+                        startActivity(new Intent(ProfessorCoursePage.this, ProfessorHomeworkPage.class));
                         dialog.dismiss();
                     } else {
                         input.setError("Homework not found");
@@ -169,7 +169,7 @@ public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRe
         String username = LoginRepository.getInstance().getUsername();
         String courseID = CourseRepository.getInstance().getCourseId();
         Course course = new CourseController(this).getOwnedCourse(courseID, username);
-        ((TextView) findViewById(R.id.studentJoinTitle)).setText(course.getName() + " Homeworks");
+        ((TextView) findViewById(R.id.studentJoinTitle)).setText(course.getName());
         String professorName = course.getOwner().getFirstname() + " " + course.getOwner().getLastname();
         ((TextView) findViewById(R.id.professorNameTextView)).setText("Instructed by " + professorName);
 
@@ -191,7 +191,11 @@ public class ProfessorCoursePage extends AppCompatActivity implements HomeworkRe
 
     @Override
     public void onHomeworkClick(int position) {
-        // TODO
+        Homework homework = mHomeworks.get(position);
+        String message = "Successfully entered " + homework.getName() + " page";
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        HomeworkRepository.getInstance().setHomeworkName(homework.getName());
+        startActivity(new Intent(ProfessorCoursePage.this, ProfessorHomeworkPage.class));
     }
 
 }
