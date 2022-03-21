@@ -72,7 +72,7 @@ public class StudentCoursePage extends AppCompatActivity implements HomeworkRecy
                 if (error == null) {
                     Homework homework = homeworkController.getHomework(CourseRepository.getInstance().getCourseId(), homeworkName);
                     if (homework != null) {
-                        String message = "Successfully entered " + homework.getName() + " homework page";
+                        String message = "Successfully entered " + homework.getName() + " page";
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                         HomeworkRepository.getInstance().setHomeworkName(homeworkName);
                         startActivity(new Intent(StudentCoursePage.this, StudentHomeworkPage.class));
@@ -122,7 +122,7 @@ public class StudentCoursePage extends AppCompatActivity implements HomeworkRecy
     @Override
     public void onHomeworkClick(int position) {
         Homework homework = mHomeworks.get(position);
-        String message = "Successfully entered " + homework.getName() + " homework page";
+        String message = "Successfully entered " + homework.getName() + " page";
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         HomeworkRepository.getInstance().setHomeworkName(homework.getName());
         startActivity(new Intent(StudentCoursePage.this, StudentHomeworkPage.class));

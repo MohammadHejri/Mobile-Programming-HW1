@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +31,7 @@ public class StudentHomeworkPage extends AppCompatActivity {
         Course course = CourseRepository.getInstance().getCourse(getApplicationContext());
         Homework homework = Homework.getHomework(getApplicationContext(),course.getId(),
                 HomeworkRepository.getInstance().getHomeworkName());
+
         TextView homeworkName = findViewById(R.id.homeworkName);
         TextView homeworkQuestion = findViewById(R.id.homeworkQuestion);
         TextView homeworkGrade = findViewById(R.id.homeworkGrade);
@@ -38,17 +40,18 @@ public class StudentHomeworkPage extends AppCompatActivity {
         Button submitButton = findViewById(R.id.submitButton);
 
         try {
-            submission = Submission.getSubmission(getApplicationContext(),course.getId(),homework.getName(),
+            submission = Submission.getSubmission(getApplicationContext(), course.getId(), homework.getName(),
                     LoginRepository.getInstance().getUsername());
-            previousAnswer.setText(submission.getAnswer());
-            homeworkGrade.setText(submission.getMark() == -1 ? "Grade : N/A" : "Grade : " + Float.toString(submission.getMark()));
-        }catch (Exception e) {
+            submitButton.setText("UPDATE ANSWER");
+            previousAnswer.setText(submission.getAnswer().trim().isEmpty()? "-" : submission.getAnswer().trim());
+            homeworkGrade.setText(submission.getMark() == (float) -1 ? "-" : String.valueOf(submission.getMark()));
+        } catch (Exception e) {
             submission = null;
-            homeworkGrade.setText("Grade : N/A");
-            previousAnswer.setText("You have not answered this question.");
+            homeworkGrade.setText("-");
+            previousAnswer.setText("-");
         }
 
-        submitButton.setEnabled(submission == null || submission.getMark() != -1);
+        submitButton.setEnabled(submission == null || submission.getMark() == -1);
         homeworkName.setText(homework.getName());
         homeworkQuestion.setText(homework.getQuestion());
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -59,15 +62,15 @@ public class StudentHomeworkPage extends AppCompatActivity {
                 if(submission == null){
                     submission = Submission.createSubmission(getApplicationContext(), course.getId(),
                             homework.getName(), LoginRepository.getInstance().getUsername(), answer);
-                    Toast.makeText(getApplicationContext(), "Your answer has been submitted.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Answer successfully submitted", Toast.LENGTH_SHORT).show();
+                    submitButton.setText("UPDATE ANSWER");
                 } else {
                     Submission.updateSubmissionAnswer(getApplicationContext(), course.getId(),
                             homework.getName(), LoginRepository.getInstance().getUsername(), answer);
-                    Toast.makeText(getApplicationContext(), "Your answer has been updated.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Answer successfully updated", Toast.LENGTH_SHORT).show();
                 }
+                homeworkAnswer.setText("");
             }
         });
-
-
     }
 }

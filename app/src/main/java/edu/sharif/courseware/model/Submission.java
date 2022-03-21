@@ -67,7 +67,7 @@ public class Submission {
         contentValues.put(DBHelper.HOMEWORK_COURSE_ID, course_id);
         contentValues.put(DBHelper.SUBMISSION_STUDENT, studentUsername);
         contentValues.put(DBHelper.SUBMISSION_ANSWER, answer);
-
+        contentValues.put(DBHelper.SUBMISSION_MARK, -1);
         db.insert(DBHelper.SUBMISSION_TABLE_NAME, null, contentValues);
         Homework homework = Homework.getHomework(context, course_id, hwName);
         Student student = Student.getStudent(context, studentUsername);

@@ -32,7 +32,6 @@ public class HomeworkController {
     }
 
     public ArrayList<Homework> getHomeworksByCourse(int courseId) {
-        Course course = Course.getCourse(context, courseId);
         try {
             return Homework.getHomeworksOfCourse(context, courseId);
         } catch (Exception e){
