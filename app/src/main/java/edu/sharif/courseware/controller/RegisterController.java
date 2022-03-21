@@ -38,15 +38,15 @@ public class RegisterController {
         if (studentNumber.length() != 8)
             return "Your student number must be 8 characters";
         if (!Pattern.matches("^[0-9]+$", studentNumber))
-            return "Only numbers are allowed in your Student number";
+            return "Only numbers are allowed";
         return null;
     }
 
     public String getUniversityNameError(String universityName) {
         if (universityName.length() == 0)
             return "This field can not be blank";
-        if (!Pattern.matches("^[a-zA-z]+", universityName))
-            return "Only letters are allowed in the University name";
+        if (!Pattern.matches("^[a-zA-z]([a-zA-z\\s])*", universityName))
+            return "Only letters and spaces are allowed";
         return null;
     }
 
