@@ -34,7 +34,7 @@ public class StudentJoinClass extends AppCompatActivity implements CourseRecycle
         String courseName = mCourses.get(position).getName() + " course";
         new AlertDialog.Builder(this)
                 .setTitle("Join Course")
-                .setMessage("Are you sure to join " + courseName + "?")
+                .setMessage("Are you sure you want to join " + courseName + "?")
                 .setIcon(R.drawable.ic_join)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {

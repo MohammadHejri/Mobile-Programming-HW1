@@ -37,7 +37,7 @@ public class LogoutController  {
     public void confirmationPopUp(Context context) {
         new AlertDialog.Builder(context)
                 .setTitle("Sign Out")
-                .setMessage("Are you sure to sign out?")
+                .setMessage("Are you sure you want to log out?")
                 .setIcon(R.drawable.ic_logout)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @SuppressLint("SetTextI18n")
